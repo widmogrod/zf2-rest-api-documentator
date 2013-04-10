@@ -11,10 +11,23 @@ This module allow to create quick documentation of your REST API
 <?php
 return array(
 	'zf2-api-documentator' => array(
+		'simple.saturnanalitic.com' => array(
+			'name' => 'api.saturnanalitic.com',
+			'version' => '1.1',
+			'baseUrl' => 'http://127.0.0.1:8080/api',
+			'strategy' => 'simple',
+			'resources' => array(
+				'GET: /keywords' => 'Fetch list of keywords',
+				'GET: /keywords/{<id>[\d]+}' => 'Fetch specific keyword',
+				'GET: /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}',
+				'GET: /keywords/{<id>[\d]+}/domains_positions_in_search_engine',
+			),
+		),
 		'api.saturnanalitic.com' => array(
 			'name' => 'api.saturnanalitic.com',
 			'version' => '1.1',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
+			'strategy' => 'explicit',
 			'resources' => array(
 				array(
 					// if result is [], then i know that this is collection, but I can tell this explicit
