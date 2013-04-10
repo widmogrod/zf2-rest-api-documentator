@@ -1,0 +1,15 @@
+{
+    "name": "widmogrod/zf2-rest-api-documentator",
+    "description": "Module generating REST API documentation",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gabriel Habryn",
+            "email": "widmogrod+zf2-rest-api@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    }
+}
