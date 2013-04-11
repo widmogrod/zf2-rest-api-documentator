@@ -36,7 +36,7 @@ return array(
 			),
 		),
 		'complex' => array(
-			'name' => 'api.example.com,
+			'name' => 'api.example.com',
 			'version' => '2',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
 			'strategy' => 'explicit',
