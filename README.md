@@ -5,8 +5,10 @@ This module is still in development phase.
 
 ## Introduction
 
-This module allow to create quick documentation of your REST API
+This module allow to create quick documentation of your REST API.
+
 Main features that I want to implement:
+
 - Generate REST API documentation
 - Unlimited number of documented APIs
 - Posibility to test & play with API from docs page
