@@ -1,17 +1,29 @@
 # Module generating REST API documentation
+## Exclamation
+
+This module is still in development phase.
+
 ## Introduction
 
 This module allow to create quick documentation of your REST API
+Main features that I want to implement:
+- Generate REST API documentation
+- Unlimited number of documented APIs
+- Posibility to test & play with API from docs page
+- Elastic & simple to use.
 
 ## Installation
+TBD
 
 ## Usage
+
+This is my wish...
 
 ```php
 <?php
 return array(
 	'zf2-api-documentator' => array(
-		'simple.saturnanalitic.com' => array(
+		'simple' => array(
 			'name' => 'api.saturnanalitic.com',
 			'version' => '1.1',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
@@ -23,7 +35,7 @@ return array(
 				'GET: /keywords/{<id>[\d]+}/domains_positions_in_search_engine',
 			),
 		),
-		'api.saturnanalitic.com' => array(
+		'complex' => array(
 			'name' => 'traapi.saturnanalitic.com',
 			'version' => '1.1',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
