@@ -1,0 +1,15 @@
+language: php
+
+php:
+ - 5.3.3
+ - 5.3
+ - 5.4
+
+before_install:
+ - composer install --dev
+
+script:
+ - vendor/bin/phpunit -c phpunit.xml.dist
+
+notifications:
+  email: "widmogrod+zf2-rest-api@gmail.com"

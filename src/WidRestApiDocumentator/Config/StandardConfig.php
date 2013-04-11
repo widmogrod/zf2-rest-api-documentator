@@ -3,7 +3,7 @@ namespace WidRestApiDocumentator\Config;
 
 use WidRestApiDocumentator\ConfigInterface;
 
-class Standard implements ConfigInterface
+class StandardConfig implements ConfigInterface
 {
     protected $name;
     protected $version;

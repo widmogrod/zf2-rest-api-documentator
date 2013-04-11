@@ -24,10 +24,15 @@ class Standard implements StrategyInterface
 
     public function parse(ConfigInterface $config)
     {
-        $resultSet = new ResourceSet\Standard();
+        $resultSet = new ResourceSet\StandardSet();
         foreach ($config->getResources() as $definition => $options) {
+            if (is_int($definition) && is_string($options)) {
+                $definition = $options;
+                $options = null;
+            }
+
             $invalidDefinition = !is_string($definition);
-            $invalidOptions = !is_string($options) || !is_array($options);
+            $invalidOptions = (null !== $options) && (!is_string($options) || !is_array($options));
             if ($invalidDefinition || $invalidOptions) {
                 $message = 'Resource must be written as $definition(string) => $options(string|array)'
                          . ' but was written as $definition(%s) => $options(%s)';
@@ -37,7 +42,7 @@ class Standard implements StrategyInterface
                 throw new Exception\InvalidArgumentException($message);
             }
 
-            $resource = new Resource\Standard();
+            $resource = new Resource\StandardResource();
             $this->parseDefinition($definition, $resource);
             $this->parseOptions($options, $resource);
             $resultSet->append($resource);

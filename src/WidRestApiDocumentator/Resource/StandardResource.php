@@ -3,7 +3,7 @@ namespace WidRestApiDocumentator\Resource;
 
 use WidRestApiDocumentator\ResourceInterface;
 
-class Standard implements ResourceInterface
+class StandardResource implements ResourceInterface
 {
     protected $method;
     protected $params;

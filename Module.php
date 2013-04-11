@@ -14,7 +14,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
      */
     public function getConfig()
     {
-        return __DIR__ . '/config/module.config.php';
+        return include __DIR__ . '/config/module.config.php';
     }
 
     /**

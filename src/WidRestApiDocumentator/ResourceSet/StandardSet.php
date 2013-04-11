@@ -4,7 +4,7 @@ namespace WidRestApiDocumentator\ResourceSet;
 use WidRestApiDocumentator\ResourceInterface;
 use WidRestApiDocumentator\ResourceSetInterface;
 
-class Standard implements ResourceSetInterface {
+class StandardSet implements ResourceSetInterface {
     protected $resources = array();
     protected $pointer = 0;
     protected $count = 0;
