@@ -24,7 +24,7 @@ This is my wish...
 return array(
 	'zf2-api-documentator' => array(
 		'simple' => array(
-			'name' => 'api.saturnanalitic.com',
+			'name' => 'api.example.com',
 			'version' => '1.1',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
 			'strategy' => 'simple',
@@ -36,8 +36,8 @@ return array(
 			),
 		),
 		'complex' => array(
-			'name' => 'traapi.saturnanalitic.com',
-			'version' => '1.1',
+			'name' => 'api.example.com,
+			'version' => '2',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
 			'strategy' => 'explicit',
 			'resources' => array(
