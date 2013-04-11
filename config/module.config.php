@@ -11,7 +11,7 @@ return array(
             'routes' => array(
                 'rest-docs-test' => array(
                     'options' => array(
-                        'route'    => 'rest docs test',
+                        'route'    => 'apidoc test',
                         'defaults' => array(
                             'controller' => 'WidRestApiDocumentator\Controller\Console',
                             'action'     => 'test'
