@@ -107,8 +107,14 @@ class Standard extends \PHPUnit_Framework_TestCase {
             /** @var $resource StandardResource */
             $this->assertInstanceOf('WidRestApiDocumentator\ResourceInterface', $resource);
             $this->assertEquals($methods[$key], $resource->getMethod());
-            $this->assertEquals($params[$key], $resource->getParams());
             $this->assertEquals($urls[$key], $resource->getUrl());
+
+            $paramSet = $resource->getParams();
+            $this->assertInstanceOf('WidRestApiDocumentator\ParamSetInterface', $paramSet);
+            $this->assertEquals(count($params[$key]), count($paramSet));
+            foreach ($paramSet as $param) {
+                $this->assertArrayHasKey($param->getName(), $params[$key]);
+            }
         }
     }
 

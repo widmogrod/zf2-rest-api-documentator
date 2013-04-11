@@ -5,7 +5,7 @@ interface ResourceInterface
 {
     public function setMethod($value);
     public function getMethod();
-    public function setParams($value);
+    public function setParams(ParamSetInterface $value);
     public function getParams();
     public function setDescription($value);
     public function getDescription();

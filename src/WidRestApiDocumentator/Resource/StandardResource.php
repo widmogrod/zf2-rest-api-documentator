@@ -1,6 +1,8 @@
 <?php
 namespace WidRestApiDocumentator\Resource;
 
+use WidRestApiDocumentator\ParamSet\ParamSet;
+use WidRestApiDocumentator\ParamSetInterface;
 use WidRestApiDocumentator\ResourceInterface;
 
 class StandardResource implements ResourceInterface
@@ -30,13 +32,16 @@ class StandardResource implements ResourceInterface
         return $this->method;
     }
 
-    public function setParams($params)
+    public function setParams(ParamSetInterface $params)
     {
         $this->params = $params;
     }
 
     public function getParams()
     {
+        if (null === $this->params) {
+            $this->params = new ParamSet();
+        }
         return $this->params;
     }
 

@@ -3,6 +3,8 @@ namespace WidRestApiDocumentator\Strategy;
 
 use WidRestApiDocumentator\ConfigInterface;
 use WidRestApiDocumentator\Exception;
+use WidRestApiDocumentator\Param\GenericParam;
+use WidRestApiDocumentator\ParamSet\ParamSet;
 use WidRestApiDocumentator\Resource;
 use WidRestApiDocumentator\ResourceInterface;
 use WidRestApiDocumentator\ResourceSet;
@@ -40,7 +42,7 @@ class Standard implements StrategyInterface
             $invalidOptions = (null !== $options) && (!is_string($options) || !is_array($options));
             if ($invalidDefinition || $invalidOptions) {
                 $message = 'Resource must be written as $definition(string) => $options(string|array)'
-                         . ' but was written as $definition(%s) => $options(%s)';
+                    . ' but was written as $definition(%s) => $options(%s)';
                 $definitionType = gettype($definition);
                 $optionsType = is_object($options) ? get_class($options) : gettype($options);
                 $message = sprintf($message, $definitionType, $optionsType);
@@ -63,7 +65,7 @@ class Standard implements StrategyInterface
             throw new Exception\InvalidArgumentException($message);
         }
 
-        list ($method, $url) = (array) explode(':', $definition, 2);
+        list ($method, $url) = (array)explode(':', $definition, 2);
         $method = trim($method);
         $method = strtoupper($method);
         if (!isset($this->availableMethods[$method])) {
@@ -91,29 +93,53 @@ class Standard implements StrategyInterface
         }
     }
 
-    protected function parseOptions($options, ResourceInterface $resource) {
+    protected function parseOptions($options, ResourceInterface $resource)
+    {
         if (is_string($options)) {
             $resource->setDescription($options);
         }
     }
 
-    protected function parseQuery($query, ResourceInterface $resource) {
+    protected function parseQuery($query, ResourceInterface $resource)
+    {
         // Replacement is done because when I use only
         // "parse_str" function chars like "+" were converted to " "
         $params = array();
-        $replaced = preg_replace_callback('/{([^}]+)}/', function($matches) use(&$params) {
+        $replaced = preg_replace_callback('/{([^}]+)}/', function ($matches) use (&$params) {
             $value = $matches[1];
             $key = count($params);
             $params[$key] = $value;
-            return '{'.$key.'}';
+            return '{' . $key . '}';
         }, $query);
 
         parse_str($replaced, $query);
 
-        $query = array_map(function($value) use(&$params) {
+        $query = array_map(function ($value) use (&$params) {
             return preg_replace('/{([^}]+)}/e', "\$params[\$1]", $value);
         }, $query);
 
-        $resource->setParams($query);
+        $params = new ParamSet();
+        foreach ($query as $name => $value) {
+            $param = new GenericParam();
+            $param->setName($name);
+
+            $pattern = sprintf('/%s/', $value);
+            switch (true) {
+                case false !== preg_match($pattern, '1234567890'):
+                    $param->getType($param::TYPE_INTEGER);
+                    break;
+                case false !== preg_match($pattern, 'abcdefghijklmnoprstuwyz'):
+                    $param->getType($param::TYPE_STRING);
+                    break;
+            }
+
+            if (false === preg_match($pattern, '')) {
+                $param->setRequired(true);
+            }
+
+            $params->set($param);
+        }
+
+        $resource->setParams($params);
     }
 }
