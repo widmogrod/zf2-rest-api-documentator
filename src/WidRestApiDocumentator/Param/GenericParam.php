@@ -6,8 +6,8 @@ use WidRestApiDocumentator\ParamInterface;
 class GenericParam implements ParamInterface
 {
     protected $name;
-    protected $type;
-    protected $required;
+    protected $type = self::TYPE_MIXED;
+    protected $required = false;
     protected $description;
 
     public function setDescription($description)

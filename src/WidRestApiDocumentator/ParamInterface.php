@@ -3,9 +3,10 @@ namespace WidRestApiDocumentator;
 
 interface ParamInterface
 {
-    const TYPE_INTEGER = 1;
-    const TYPE_STRING = 2;
-    
+    const TYPE_MIXED = 1;
+    const TYPE_INTEGER = 2;
+    const TYPE_STRING = 4;
+
     public function setName($value);
     public function getName();
     public function setType($value);
