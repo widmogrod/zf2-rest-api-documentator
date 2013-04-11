@@ -51,4 +51,37 @@ class Standard extends \PHPUnit_Framework_TestCase {
             ),
         );
     }
+
+    /**
+     * @expectedException \WidRestApiDocumentator\Exception\InvalidArgumentException
+     * @dataProvider getParseInvalidDefinitionProvider
+     */
+    public function testParseInvalidDefinition($resurces) {
+        // prepare config mock
+        {{
+            $call = 0;
+            $this->config->expects($this->at($call++))->method('getResources')->will($this->returnValue($resurces));
+        }}
+        $this->object->parse($this->config);
+    }
+
+    public function getParseInvalidDefinitionProvider() {
+        return array(
+            'no separator' => array(
+                'resources' => array(
+                    'GETx /http'
+                ),
+            ),
+            'invalid method' => array(
+                'resources' => array(
+                    'invalid: /http'
+                ),
+            ),
+            'no path' => array(
+                'resources' => array(
+                    'invalid:'
+                ),
+            ),
+        );
+    }
 }

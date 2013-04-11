@@ -52,7 +52,12 @@ class Standard implements StrategyInterface
     protected function parseDefinition($definition, ResourceInterface $resource)
     {
         $definition = trim($definition);
-        list ($method, $url) = explode(':', $definition, 1);
+        if (false === strpos($definition, ':')) {
+            $message = 'Definition must contains HTTP Method & URL separator ":"';
+            throw new Exception\InvalidArgumentException($message);
+        }
+
+        list ($method, $url) = (array) explode(':', $definition, 2);
         $method = trim($method);
         $method = strtoupper($method);
         if (!isset($this->availableMethods[$method])) {
