@@ -22,6 +22,11 @@ class Standard implements StrategyInterface
         self::METHOD_DELETE => true,
     );
 
+    /**
+     * @param ConfigInterface $config
+     * @return \WidRestApiDocumentator\ResourceSet\StandardSet
+     * @throws \WidRestApiDocumentator\Exception\InvalidArgumentException
+     */
     public function parse(ConfigInterface $config)
     {
         $resultSet = new ResourceSet\StandardSet();
@@ -47,6 +52,7 @@ class Standard implements StrategyInterface
             $this->parseOptions($options, $resource);
             $resultSet->append($resource);
         }
+        return $resultSet;
     }
 
     protected function parseDefinition($definition, ResourceInterface $resource)

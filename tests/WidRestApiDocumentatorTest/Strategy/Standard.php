@@ -1,6 +1,7 @@
 <?php
 namespace WidRestApiDocumentatorTest\Strategy;
 
+use WidRestApiDocumentator\Resource\StandardResource;
 use WidRestApiDocumentator\Strategy\Standard as TestObject;
 
 class Standard extends \PHPUnit_Framework_TestCase {
@@ -66,6 +67,46 @@ class Standard extends \PHPUnit_Framework_TestCase {
     }
 
     public function getParseInvalidDefinitionProvider() {
+        return array(
+            'no separator' => array(
+                'resources' => array(
+                    'GETx /http'
+                ),
+            ),
+            'invalid method' => array(
+                'resources' => array(
+                    'invalid: /http'
+                ),
+            ),
+            'no path' => array(
+                'resources' => array(
+                    'invalid:'
+                ),
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider getParseSuccessProvider
+     */
+    public function testParseISuccess($resurces) {
+        // prepare config mock
+        {{
+            $call = 0;
+            $this->config->expects($this->at($call++))->method('getResources')->will($this->returnValue($resurces));
+        }}
+        $result = $this->object->parse($this->config);
+        $this->assertInstanceOf('WidRestApiDocumentator\ResourceSetInterface', $result);
+        $this->assertEquals(count($result), count($resurces));
+
+        foreach ($result as $key => $resource) {
+            /** @var $resource StandardResource */
+            $this->assertInstanceOf('WidRestApiDocumentator\ResourceInterface', $resource);
+            $this->assertEquals($resource->get)
+        }
+    }
+
+    public function getParseSuccessProvider() {
         return array(
             'no separator' => array(
                 'resources' => array(
