@@ -8,8 +8,19 @@
             "email": "widmogrod+zf2-rest-api@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-
+        "php": ">=5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "zendframework/zendframework": "2.1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "WidRestApiDocumentator": "src"
+        },
+        "classmap": [
+            "Module.php"
+        ]
     }
 }

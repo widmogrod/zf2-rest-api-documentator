@@ -1,25 +1,14 @@
 <?php
 namespace WidRestApiDocumentator;
 
-interface ConfigInterface
+interface ResourceInterface
 {
-    public function setName($value);
-
-    public function getName();
-
-    public function setVersion($value);
-
-    public function getVersion();
-
-    public function setBaseUrl($value);
-
-    public function getBaseUrl();
-
-    public function setStrategy($value);
-
-    public function getStrategy();
-
-    public function setResources($value);
-
-    public function getResources();
+    public function setMethod($value);
+    public function getMethod();
+    public function setParams($value);
+    public function getParams();
+    public function setDescription($value);
+    public function getDescription();
+    public function setUri($value);
+    public function getUri();
 }

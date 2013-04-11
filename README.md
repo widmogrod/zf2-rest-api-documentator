@@ -1,4 +1,4 @@
-# REST API Documentator for Zend Framework 2
+# Module generating REST API documentation
 ## Introduction
 
 This module allow to create quick documentation of your REST API
@@ -24,7 +24,7 @@ return array(
 			),
 		),
 		'api.saturnanalitic.com' => array(
-			'name' => 'api.saturnanalitic.com',
+			'name' => 'traapi.saturnanalitic.com',
 			'version' => '1.1',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
 			'strategy' => 'explicit',

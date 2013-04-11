@@ -1,14 +1,7 @@
 <?php
 namespace WidRestApiDocumentator;
 
-interface ResourceInterface
+interface ResourceSetInterface extends \Iterator, \Countable
 {
-    public function setMethod($value);
-    public function getMethod();
-    public function setParams($value);
-    public function getParams();
-    public function setDescription($value);
-    public function getDescription();
-    public function setUri($value);
-    public function getUri();
+    public function append(ResourceInterface $resource);
 }
