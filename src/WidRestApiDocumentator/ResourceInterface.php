@@ -9,6 +9,6 @@ interface ResourceInterface
     public function getParams();
     public function setDescription($value);
     public function getDescription();
-    public function setUri($value);
-    public function getUri();
+    public function setUrl($value);
+    public function getUrl();
 }

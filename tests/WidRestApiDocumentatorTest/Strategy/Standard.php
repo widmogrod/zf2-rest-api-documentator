@@ -89,7 +89,7 @@ class Standard extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider getParseSuccessProvider
      */
-    public function testParseISuccess($resurces) {
+    public function testParseISuccess($resurces, $methods, $params, $urls) {
         // prepare config mock
         {{
             $call = 0;
@@ -100,28 +100,59 @@ class Standard extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(count($result), count($resurces));
 
         foreach ($result as $key => $resource) {
+            $this->assertArrayHasKey($key, $methods);
+            $this->assertArrayHasKey($key, $params);
+            $this->assertArrayHasKey($key, $urls);
+
             /** @var $resource StandardResource */
             $this->assertInstanceOf('WidRestApiDocumentator\ResourceInterface', $resource);
-            $this->assertEquals($resource->get)
+            $this->assertEquals($methods[$key], $resource->getMethod());
+            $this->assertEquals($params[$key], $resource->getParams());
+            $this->assertEquals($urls[$key], $resource->getUrl());
         }
     }
 
     public function getParseSuccessProvider() {
         return array(
-            'no separator' => array(
-                'resources' => array(
-                    'GETx /http'
+            'GET' => array(
+                '$resources' => array(
+                    'GET: /test'
                 ),
+                '$methods' => array('GET'),
+                '$params' => array(null),
+                '$urls' => array('/test'),
             ),
-            'invalid method' => array(
-                'resources' => array(
-                    'invalid: /http'
+            'with query' => array(
+                '$resources' => array(
+                    'GET : /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}'
                 ),
+                '$methods' => array('GET'),
+                '$params' => array(array('limit' => '[\d+]', 'order' => '(asc|desc)')),
+                '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
             ),
-            'no path' => array(
-                'resources' => array(
-                    'invalid:'
+            'POST' => array(
+                '$resources' => array(
+                    'POST: /test'
                 ),
+                '$methods' => array('POST'),
+                '$params' => array(null),
+                '$urls' => array('/test'),
+            ),
+            'PUT' => array(
+                '$resources' => array(
+                    'PUT: /test'
+                ),
+                '$methods' => array('PUT'),
+                '$params' => array(null),
+                '$urls' => array('/test'),
+            ),
+            'DELETE' => array(
+                '$resources' => array(
+                    'DELETE: /test'
+                ),
+                '$methods' => array('DELETE'),
+                '$params' => array(null),
+                '$urls' => array('/test'),
             ),
         );
     }

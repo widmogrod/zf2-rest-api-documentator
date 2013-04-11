@@ -83,11 +83,11 @@ class Standard implements StrategyInterface
             throw new Exception\InvalidArgumentException($message);
         }
 
-        $resource->setUri($url);
+        $resource->setMethod($method);
+        $resource->setUrl($parts['path']);
 
         if (array_key_exists('query', $parts)) {
-            parse_str($parts['query'], $query);
-            $resource->setParams($query);
+            $this->parseQuery($parts['query'], $resource);
         }
     }
 
@@ -95,5 +95,25 @@ class Standard implements StrategyInterface
         if (is_string($options)) {
             $resource->setDescription($options);
         }
+    }
+
+    protected function parseQuery($query, ResourceInterface $resource) {
+        // Replacement is done because when I use only
+        // "parse_str" function chars like "+" were converted to " "
+        $params = array();
+        $replaced = preg_replace_callback('/{([^}]+)}/', function($matches) use(&$params) {
+            $value = $matches[1];
+            $key = count($params);
+            $params[$key] = $value;
+            return '{'.$key.'}';
+        }, $query);
+
+        parse_str($replaced, $query);
+
+        $query = array_map(function($value) use(&$params) {
+            return preg_replace('/{([^}]+)}/e', "\$params[\$1]", $value);
+        }, $query);
+
+        $resource->setParams($query);
     }
 }

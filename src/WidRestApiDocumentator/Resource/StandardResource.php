@@ -40,12 +40,12 @@ class StandardResource implements ResourceInterface
         return $this->params;
     }
 
-    public function setUri($uri)
+    public function setUrl($uri)
     {
         $this->uri = $uri;
     }
 
-    public function getUri()
+    public function getUrl()
     {
         return $this->uri;
     }
