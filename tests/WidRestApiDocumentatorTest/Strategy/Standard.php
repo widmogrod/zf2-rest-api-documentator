@@ -128,12 +128,20 @@ class Standard extends \PHPUnit_Framework_TestCase {
                 '$params' => array(null),
                 '$urls' => array('/test'),
             ),
-            'with query' => array(
+            'with query regexp' => array(
                 '$resources' => array(
                     'GET : /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}'
                 ),
                 '$methods' => array('GET'),
                 '$params' => array(array('limit' => '[\d+]', 'order' => '(asc|desc)')),
+                '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
+            ),
+            'with query' => array(
+                '$resources' => array(
+                    'GET : /keywords/{<id>[\d]+}/search_engines?limit=&order='
+                ),
+                '$methods' => array('GET'),
+                '$params' => array(array('limit' => '', 'order' => '')),
                 '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
             ),
             'POST' => array(
