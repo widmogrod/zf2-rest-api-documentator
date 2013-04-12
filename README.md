@@ -32,10 +32,22 @@ return array(
 			'strategy' => 'simple',
 			'general' => array(
 				'params' => array(
-					'limit' => array(
-						'type' => 'integer', 
+					'id' => array(
+    					'type' => 'integer',
+                        'required' => true
+						'description' => 'Resource identificator'
+					),
+                    'limit' => array(
+    					'type' => 'integer', 
 						'description' => 'Limit API result to given value. Value must be between 1-100'
 					),
+                    'order' => array(
+                        'type' => 'enum',
+                        'required' => false,
+                        'default' => 'asc',
+                        'enum' => array('asc', 'desc'),
+                        'description' => 'Retrieve API result ordered by given value'
+                    ),
 				),
 			),
 			'resources' => array(
