@@ -30,9 +30,17 @@ return array(
 			'version' => '1.1',
 			'baseUrl' => 'http://127.0.0.1:8080/api',
 			'strategy' => 'simple',
+			'general' => array(
+				'params' => array(
+					'limit' => array(
+						'type' => 'integer', 
+						'description' => 'Limit API result to given value. Value must be between 1-100'
+					),
+				),
+			),
 			'resources' => array(
 				'GET: /keywords' => 'Fetch list of keywords',
-				'GET: /keywords/{<id>[\d]+}' => 'Fetch specific keyword',
+				'GET: /keywords/{<id>[\d]+}' => 'Fetch specific keyword <id>',
 				'GET: /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}',
 				'GET: /keywords/{<id>[\d]+}/domains_positions_in_search_engine',
 			),
