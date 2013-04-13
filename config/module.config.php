@@ -23,9 +23,9 @@ return array(
                     'show' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '[/:id]',
+                            'route'    => '/:id',
                             'constraints' => array(
-                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]+',
                             ),
                             'defaults' => array(
                                 'action' => 'show',

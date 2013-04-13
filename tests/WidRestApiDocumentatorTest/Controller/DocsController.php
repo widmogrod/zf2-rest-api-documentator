@@ -20,8 +20,20 @@ class DocsController extends AbstractHttpControllerTestCase
         $this->dispatch('/rest-api-docs');
         $this->assertResponseStatusCode(200);
         $this->assertModuleName('WidRestApiDocumentator');
+        $this->assertActionName('list');
         $this->assertControllerName('WidRestApiDocumentator\Controller\Docs');
         $this->assertControllerClass('DocsController');
         $this->assertMatchedRouteName('rest-api-docs');
+    }
+
+    public function testShowAction()
+    {
+        $this->dispatch('/rest-api-docs/simple');
+        $this->assertResponseStatusCode(200);
+        $this->assertModuleName('WidRestApiDocumentator');
+        $this->assertActionName('show');
+        $this->assertControllerName('WidRestApiDocumentator\Controller\Docs');
+        $this->assertControllerClass('DocsController');
+        $this->assertMatchedRouteName('rest-api-docs/show');
     }
 }
