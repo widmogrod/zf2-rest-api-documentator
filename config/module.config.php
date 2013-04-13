@@ -20,9 +20,9 @@ return array(
                 'may_terminate' => true,
                 'child_routes' => array(
                     'show' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
-                            'route'    => '/:id',
+                            'route' => '/:id',
                             'constraints' => array(
                                 'id' => '[a-zA-Z][a-zA-Z0-9_-]+',
                             ),
@@ -42,6 +42,29 @@ return array(
             'wid-rest-api-documentator/docs/list' => __DIR__ . '/../view/docs/list.phtml',
             'wid-rest-api-documentator/docs/show' => __DIR__ . '/../view/docs/show.phtml',
             'wid-rest-api-documentator/partials/params' => __DIR__ . '/../view/partials/params.phtml',
+        ),
+    ),
+
+    'assetic_configuration' => array(
+        'basePath' => 'public/assets',
+        'controllers' => array(
+            'WidRestApiDocumentator\Controller\Docs' => array(
+                '@zf2_rest_api_css',
+            ),
+        ),
+
+        'modules' => array(
+            'WidRestApiDocumentator' => array(
+                'root_path' => __DIR__ . '/../assets',
+                'collections' => array(
+                    'zf2_rest_api_css' => array(
+                        'assets' => array(
+                            'css/bootstrap.css',
+                            'css/main.css',
+                        ),
+                    ),
+                ),
+            ),
         ),
     ),
 );

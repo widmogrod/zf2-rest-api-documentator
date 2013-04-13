@@ -1,3 +1,5 @@
 /vendor/
 .idea/
 composer.lock
+public/assets/*
+index.php

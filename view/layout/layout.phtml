@@ -1,7 +1,8 @@
-<?php echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
     echo $this->plugin('HeadTitle');
     echo $this->plugin('HeadMeta');
@@ -11,21 +12,9 @@
     ?>
 </head>
 <body>
-<div id="container">
-    <div id="header">
-
-    </div>
-    <div id="wrapper">
-        <div id="main">
-            <?php echo $this->content ?>
-        </div>
-    </div>
-    <div id="footer">
-
-    </div>
+<div class="container">
+    <?= $this->content ?>
 </div>
-<?php
-echo $this->plugin('InlineScript');
-?>
+<?php echo $this->plugin('InlineScript'); ?>
 </body>
 </html>

@@ -1,8 +1,14 @@
 <?php
 /** @var $data \WidRestApiDocumentator\DataInterface */
 ?>
-<ul>
+<h1>REST API Documentations</h1>
+<ul class="api-list">
     <?php foreach($this->dataSet as $data): ?>
-    <li><a href="<?= $this->url('rest-api-docs/show', array('id' => $data->getId()))?>"><?= $data->getConfig()->getName() ?></a></li>
+    <li class="api-item">
+        <h2><a href="<?= $this->url('rest-api-docs/show', array('id' => $data->getId()))?>">
+            <?= $data->getConfig()->getName() ?>
+            <span class="label label-info"><?= $data->getConfig()->getVersion()?></span>
+        </a></h2>
+    </li>
     <?php endforeach; ?>
 </ul>
