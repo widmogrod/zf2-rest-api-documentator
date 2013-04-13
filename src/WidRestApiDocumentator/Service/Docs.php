@@ -40,8 +40,14 @@ class Docs
     public function getList($page = null, $limit = null)
     {
         $result = new StandardSet();
+
         $data = $this->options;
-        // TODO: slice data to $pag & $limit
+        if (null !== $limit) {
+            $limit = ($limit > 0) ? (int)$limit : 10;
+            $page = ($page > 1) ? ((int)$page - 1) : 0;
+            $data = array_slice($data, $page * $limit, $limit);
+        }
+
         foreach ($data as $id => $options) {
             $result->append($this->build($id, $options));
         }
