@@ -1,8 +1,27 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: gabriel
- * Date: 13.04.2013
- * Time: 16:24
- * To change this template use File | Settings | File Templates.
- */
+$params = $this->vars();
+if (!count($params)) {
+    return;
+}
+/** @var $param \WidRestApiDocumentator\ParamInterface */
+
+?>
+<div class="api-params">
+    <h5>Query params</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+        <?php foreach($params as $param): ?>
+            <tr>
+                <td><?= $param->getName() ?></td>
+                <td><?= $param->getType() ?></td>
+                <td><?= $param->isRequired() ? 'yes' : 'no' ?></td>
+                <td><?= $param->getDescription() ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
