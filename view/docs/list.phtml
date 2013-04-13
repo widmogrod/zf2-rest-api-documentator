@@ -1,0 +1,8 @@
+<?php
+/** @var $data \WidRestApiDocumentator\DataInterface */
+?>
+<ul>
+    <?php foreach($this->dataSet as $data): ?>
+    <li><a href="<?= $this->url('api-docs/show', array('id' => $data->getId()))?>"><?= $data->getConfig()->getName() ?></a></li>
+    <?php endforeach; ?>
+</ul>

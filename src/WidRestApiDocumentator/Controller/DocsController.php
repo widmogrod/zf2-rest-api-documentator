@@ -21,15 +21,19 @@ class DocsController extends AbstractActionController
         /** @var $rq \Zend\Http\PhpEnvironment\Request */
         $rq = $this->getRequest();
         $service = $this->getApiService();
-        return $service->getList($rq->getQuery('page'), $rq->getQuery('limit'));
+        return array(
+            'dataSet' => $service->getList($rq->getQuery('page'), $rq->getQuery('limit')),
+        );
     }
 
     public function showAction()
     {
         $this->layout()->setTemplate('wid-rest-api-documentator/docs/layout');
 
-        $name = $this->params('name');
+        $id = $this->params('id');
         $service = $this->getApiService();
-        return $service->getOne($name);
+        return array(
+            'data' => $service->getOne($id)
+        );
     }
 }

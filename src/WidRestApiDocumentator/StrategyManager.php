@@ -6,7 +6,7 @@ use WidRestApiDocumentator\StrategyInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
 
-class StrategyPluginManager extends AbstractPluginManager
+class StrategyManager extends AbstractPluginManager
 {
     /**
      * Default set of strategies

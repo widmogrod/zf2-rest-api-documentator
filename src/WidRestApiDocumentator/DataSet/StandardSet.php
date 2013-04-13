@@ -1,20 +1,20 @@
 <?php
-namespace WidRestApiDocumentator\ResourceSet;
+namespace WidRestApiDocumentator\DataSet;
 
-use WidRestApiDocumentator\ResourceInterface;
-use WidRestApiDocumentator\ResourceSetInterface;
+use WidRestApiDocumentator\DataInterface;
+use WidRestApiDocumentator\DataSetInterface;
 
-class StandardSet implements ResourceSetInterface {
-    protected $resources = array();
+class StandardSet implements DataSetInterface {
+    protected $data = array();
     protected $pointer = 0;
     protected $count = 0;
 
     /**
-     * @return ResourceInterface
+     * @return DataInterface
      */
     public function current()
     {
-        return $this->resources[$this->pointer];
+        return $this->data[$this->pointer];
     }
 
     /**
@@ -59,9 +59,9 @@ class StandardSet implements ResourceSetInterface {
         return $this->count;
     }
 
-    public function append(ResourceInterface $resource)
+    public function append(DataInterface $resource)
     {
-        $this->resources[] = $resource;
+        $this->data[] = $resource;
         $this->count++;
     }
 }

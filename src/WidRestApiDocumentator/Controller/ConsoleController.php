@@ -17,7 +17,7 @@ class ConsoleController extends AbstractActionController
         }
 
         $config = $this->getServiceLocator()->get('config');
-        $docs = $config['zf2-api-documentator'];
+        $docs = $config['zf2-rest-api-documentator'];
 
         $config = new \WidRestApiDocumentator\Config\StandardConfig();
         $config->setOptions($docs['simple']);

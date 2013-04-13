@@ -6,6 +6,7 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 
@@ -46,11 +47,22 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
     public function getServiceConfig()
     {
         return array(
+            'aliases' => array(
+                'RestApiDocs' => 'WidRestApiDocumentator\Service\Docs',
+            ),
             'factories' => array(
-                'WidRestApiDocumentator\Service\Docs' => function(ServiceLocatorInterface $service) {
+                'WidRestApiDocumentator\Service\Docs' => function (ServiceLocatorInterface $service) {
                     $config = $service->get('Config');
-                    $options = (array) isset($config, $config['zf2-api-documentator']) ? $config['zf2-api-documentator'] : array();
-                    return new Service\Docs($options);
+                    $options = (array)isset($config, $config['zf2-rest-api-documentator'], $config['zf2-rest-api-documentator']['docs']) ? $config['zf2-rest-api-documentator']['docs'] : array();
+                    /** @var $strategyManager \WidRestApiDocumentator\StrategyManager */
+                    $strategyManager = $service->get('WidRestApiDocumentator\StrategyManager');
+                    return new Service\Docs($options, $strategyManager);
+                },
+                'WidRestApiDocumentator\StrategyManager' => function (ServiceLocatorInterface $service) {
+                    $config = $service->get('Config');
+                    $options = (array)isset($config, $config['zf2-rest-api-documentator']) ? $config['zf2-rest-api-documentator'] : array();
+                    $config = new Config($options['strategies']);
+                    return new StrategyManager($config);
                 },
             ),
         );

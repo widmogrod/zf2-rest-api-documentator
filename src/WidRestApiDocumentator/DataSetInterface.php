@@ -1,7 +1,7 @@
 <?php
 namespace WidRestApiDocumentator;
 
-interface ResourceSetInterface extends \Iterator, \Countable
+interface DataSetInterface extends \Iterator, \Countable
 {
-    public function append(ResourceInterface $resource);
+    public function append(DataInterface $data);
 }
