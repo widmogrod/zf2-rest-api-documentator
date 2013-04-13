@@ -5,8 +5,12 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceManager;
 
-class Module implements ConfigProviderInterface, AutoloaderProviderInterface, ConsoleUsageProviderInterface {
+class Module implements ConfigProviderInterface, AutoloaderProviderInterface, ServiceProviderInterface, ConsoleUsageProviderInterface
+{
     /**
      * Returns configuration to merge with application configuration
      *
@@ -32,6 +36,26 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
             ),
         );
     }
+
+    /**
+     * Expected to return \Zend\ServiceManager\Config object or array to
+     * seed such an object.
+     *
+     * @return array|\Zend\ServiceManager\Config
+     */
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'WidRestApiDocumentator\Service\Docs' => function(ServiceLocatorInterface $service) {
+                    $config = $service->get('Config');
+                    $options = (array) isset($config, $config['zf2-api-documentator']) ? $config['zf2-api-documentator'] : array();
+                    return new Service\Docs($options);
+                },
+            ),
+        );
+    }
+
 
     /**
      * Returns an array or a string containing usage information for this module's Console commands.

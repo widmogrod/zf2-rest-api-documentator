@@ -1,8 +1,21 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: gabriel
- * Date: 13.04.2013
- * Time: 11:52
- * To change this template use File | Settings | File Templates.
- */
+namespace WidRestApiDocumentator\Service;
+
+class Docs
+{
+    protected $options;
+
+    public function __construct(array $options) {
+        $this->options = $options;
+    }
+
+    public function getList()
+    {
+
+    }
+
+    public function getOne()
+    {
+
+    }
+}
