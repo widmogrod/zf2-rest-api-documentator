@@ -14,6 +14,11 @@ Main features that I want to implement:
 - Posibility to test & play with API from docs page
 - Elastic & simple to use.
 
+## Demo
+TBD
+
+![Example API](https://raw.github.com/widmogrod/zf2-rest-api-documentator/master/assets/generated-api.png)
+
 ## Installation
 TBD
 
