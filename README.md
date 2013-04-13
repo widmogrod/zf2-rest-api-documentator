@@ -26,7 +26,7 @@ This is my wish...
 return array(
 	'zf2-rest-api-documentator' => array(
 	    'strategies' => array(
-            'invokable' => array(
+            'invokables' => array(
                 'myStrategy' => 'WidRestApiDocumentator\Strategy\Standard',
             ),
         ),
