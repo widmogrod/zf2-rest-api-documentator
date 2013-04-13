@@ -52,16 +52,16 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
             ),
             'factories' => array(
                 'WidRestApiDocumentator\Service\Docs' => function (ServiceLocatorInterface $service) {
-                    $config = $service->get('Config');
-                    $options = (array)isset($config, $config['zf2-rest-api-documentator'], $config['zf2-rest-api-documentator']['docs']) ? $config['zf2-rest-api-documentator']['docs'] : array();
+                    $config = (array) $service->get('Config');
+                    $options = (array) isset($config, $config['zf2-rest-api-documentator'], $config['zf2-rest-api-documentator']['docs']) ? $config['zf2-rest-api-documentator']['docs'] : array();
                     /** @var $strategyManager \WidRestApiDocumentator\StrategyManager */
                     $strategyManager = $service->get('WidRestApiDocumentator\StrategyManager');
                     return new Service\Docs($options, $strategyManager);
                 },
                 'WidRestApiDocumentator\StrategyManager' => function (ServiceLocatorInterface $service) {
-                    $config = $service->get('Config');
-                    $options = (array)isset($config, $config['zf2-rest-api-documentator']) ? $config['zf2-rest-api-documentator'] : array();
-                    $config = new Config($options['strategies']);
+                    $config = (array) $service->get('Config');
+                    $options = (array)isset($config, $config['zf2-rest-api-documentator'], $config['zf2-rest-api-documentator']['strategies']) ? $config['zf2-rest-api-documentator']['strategies'] : array();
+                    $config = new Config($options);
                     return new StrategyManager($config);
                 },
             ),
