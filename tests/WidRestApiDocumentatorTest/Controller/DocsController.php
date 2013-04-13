@@ -1,39 +1,120 @@
 <?php
 namespace WidRestApiDocumentatorTest\Controller;
 
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use WidRestApiDocumentator\Controller\DocsController as TestObject;
+use Zend\EventManager\EventManager;
+use Zend\Http\PhpEnvironment\Request;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\Router\Http\RouteMatch;
+use Zend\ServiceManager\ServiceManager;
+use Zend\Http\Response;
 
-class DocsController extends AbstractHttpControllerTestCase
+class DocsController extends \PHPUnit_Framework_TestCase
 {
-    protected $traceError = true;
+    /**
+     * @var Request
+     */
+    protected $request;
+    /**
+     * @var Response
+     */
+    protected $response;
+    /**
+     * @var RouteMatch
+     */
+    protected $routeMatch;
+    /**
+     * @var EventManager
+     */
+    protected $eventManager;
+    /**
+     * @var MvcEvent
+     */
+    protected $event;
+    /**
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+    /**
+     * @var TestObject
+     */
+    protected $object;
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $docs;
 
     public function setUp()
     {
-        $this->setApplicationConfig(
-            include 'tests/config/application.config.php'
+        $this->eventManager = new EventManager();
+        $this->event = new MvcEvent();
+        $this->object = new TestObject();
+        $this->serviceLocator = new ServiceManager();
+
+        $this->docs = $this->getMockBuilder('WidRestApiDocumentator\Service\Docs')->disableOriginalConstructor()->getMock();
+        $this->serviceLocator->setService('WidRestApiDocumentator\Service\Docs', $this->docs);
+
+        $this->routeMatch = new RouteMatch(array(
+            'controller' => 'WidRestApiDocumentator\Controller\Docs',
+        ));
+        $this->event->setRouteMatch($this->routeMatch);
+
+        $this->request = new Request();
+        $this->response = new Response();
+
+        $this->object->setServiceLocator($this->serviceLocator);
+        $this->object->setEventManager($this->eventManager);
+        $this->object->setEvent($this->event);
+    }
+
+    /**
+     * @dataProvider getListActionProvider
+     */
+    public function testListAction($page, $limit)
+    {
+        $query = $this->request->getQuery();
+        $query->set('page', $page);
+        $query->set('limit', $limit);
+        $this->docs->expects($this->once())->method('getList')->with($page, $limit);
+        $this->routeMatch->setParam('action', 'list');
+        $result = $this->object->dispatch($this->request, $this->response);
+        $this->assertInternalType('array', $result);
+        $this->assertArrayHasKey('dataSet', $result);
+    }
+
+    public function getListActionProvider()
+    {
+        return array(
+            'none' => array(
+                '$page' => null,
+                '$limit' => null,
+            ),
+            'simple' => array(
+                '$page' => 10,
+                '$limit' => 1,
+            ),
         );
-        parent::setUp();
     }
 
-    public function testListAction()
+    /**
+     * @dataProvider getShowActionProvider
+     */
+    public function testShowAction($id)
     {
-        $this->dispatch('/rest-api-docs');
-        $this->assertResponseStatusCode(200);
-        $this->assertModuleName('WidRestApiDocumentator');
-        $this->assertActionName('list');
-        $this->assertControllerName('WidRestApiDocumentator\Controller\Docs');
-        $this->assertControllerClass('DocsController');
-        $this->assertMatchedRouteName('rest-api-docs');
+        $this->docs->expects($this->once())->method('getOne')->with($id);
+        $this->routeMatch->setParam('action', 'show');
+        $this->routeMatch->setParam('id', $id);
+        $result = $this->object->dispatch($this->request, $this->response);
+        $this->assertInternalType('array', $result);
+        $this->assertArrayHasKey('data', $result);
     }
 
-    public function testShowAction()
+    public function getShowActionProvider()
     {
-        $this->dispatch('/rest-api-docs/simple');
-        $this->assertResponseStatusCode(200);
-        $this->assertModuleName('WidRestApiDocumentator');
-        $this->assertActionName('show');
-        $this->assertControllerName('WidRestApiDocumentator\Controller\Docs');
-        $this->assertControllerClass('DocsController');
-        $this->assertMatchedRouteName('rest-api-docs/show');
+        return array(
+            'simple' => array(
+                '$id' => 'asdasd',
+            ),
+        );
     }
 }

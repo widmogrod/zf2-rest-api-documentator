@@ -3,7 +3,7 @@ namespace WidRestApiDocumentatorTest\Controller;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
-class DocsController extends AbstractHttpControllerTestCase
+class DocsControllerHttpTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = true;
 
