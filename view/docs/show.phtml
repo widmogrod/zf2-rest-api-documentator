@@ -1,0 +1,38 @@
+<?php
+/** @var $data \WidRestApiDocumentator\DataInterface */
+$data = $this->data;
+$config = $data->getConfig();
+$resourceSet = $data->getResourceSet();
+/** @var $resource \WidRestApiDocumentator\ResourceInterface */
+?>
+<h1><?= $config->getName() ?> <span class="label label-info"><?= $config->getVersion()?></span></h1>
+
+<h2>Endpoints</h2>
+<?php foreach($resourceSet as $resource): ?>
+<div>
+    <span class="api-method"><?= $resource->getMethod()?></span> <span class="api-url"><?= $resource->getUrl()?></span>
+    <p class="api-description"><?= $resource->getDescription(); ?></p>
+    
+    <?php
+        $params = $resource->getParams();
+        /** @var $param \WidRestApiDocumentator\ParamInterface */
+    ?>
+    <h3>Params</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+        <?php foreach($params as $param): ?>
+        <tr>
+            <td><?= $param->getName() ?></td>
+            <td><?= $param->getType() ?></td>
+            <td><?= $param->isRequired() ? 'yes' : 'no' ?></td>
+            <td><?= $param->getDescription() ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
+<?php endforeach; ?>
