@@ -40,7 +40,7 @@ return array(
                     'params' => array(
                         'id' => array(
                             'type' => 'integer',
-                            'required' => true
+                            'required' => true,
                             'description' => 'Resource identificator'
                         ),
                         'limit' => array(
