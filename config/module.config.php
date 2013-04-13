@@ -3,6 +3,25 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'WidRestApiDocumentator\Controller\Console' => 'WidRestApiDocumentator\Controller\ConsoleController',
+            'WidRestApiDocumentator\Controller\Docs' => 'WidRestApiDocumentator\Controller\DocsController',
+        ),
+    ),
+
+    'router' => array(
+        'routes' => array(
+            'api-docs' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api-docs[/:action]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'WidRestApiDocumentator\Controller\Docs',
+                        'action' => 'list',
+                    ),
+                ),
+            ),
         ),
     ),
 
@@ -11,10 +30,10 @@ return array(
             'routes' => array(
                 'rest-docs-test' => array(
                     'options' => array(
-                        'route'    => 'apidoc test',
+                        'route' => 'apidoc test',
                         'defaults' => array(
                             'controller' => 'WidRestApiDocumentator\Controller\Console',
-                            'action'     => 'test'
+                            'action' => 'test'
                         )
                     )
                 )
