@@ -39,7 +39,7 @@ class Standard implements StrategyInterface
             }
 
             $invalidDefinition = !is_string($definition);
-            $invalidOptions = (null !== $options) && (!is_string($options) || !is_array($options));
+            $invalidOptions = (null !== $options) && (!is_string($options) && !is_array($options));
             if ($invalidDefinition || $invalidOptions) {
                 $message = 'Resource must be written as $definition(string) => $options(string|array)'
                     . ' but was written as $definition(%s) => $options(%s)';
