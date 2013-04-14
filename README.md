@@ -89,6 +89,76 @@ To see this result, enter in browser your application addres and go to route `/r
 ![Example API](https://raw.github.com/widmogrod/zf2-rest-api-documentator/master/assets/generated-api.png)
 
 ## Tips & treaks
-### Setup you own route name to to documentation.
+### Setup you own route name to your documentation.
 
+``` php
+<?php
+return array(
+    'router' => array(
+        'routes' => array(
+            'rest-api-docs' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/my-api-doc',
+                    'defaults' => array(
+                        'controller' => 'WidRestApiDocumentator\Controller\Docs',
+                        'action' => 'show',
+                        // NOTE: "my_module_name" is name of key in which your documentation was defined (see usage above)
+                        'id' => 'my_module_name',
+))))));
+```
 
+### Write your own strategy
+
+Currently module have one strategy named "standard".
+Strategy is way, in which documentation configuration will be interpreted.
+It's very usfull way to create your own interpreter.
+To do that you need to do two things
+
+  1. Write your strategy implementing this interface `WidRestApiDocumentator\StrategyInterface`
+  2. Tell the module, that there is new strategy. Create this configuration entry:
+
+``` php
+return array(
+	'zf2-rest-api-documentator' => array(
+        'strategies' => array(
+            'invokables' => array(
+                'myStrategy' => 'WidRestApiDocumentator\Strategy\Standard',
+))));
+```
+
+### How to run this module without installing `ZendSkeletonApplication`
+
+  1. run `composer.phar install --dev`
+  2. create file `index.php` in module direcotry with content:
+
+``` php
+<?php
+chdir(__DIR__);
+if (!is_dir('public/assets')) {
+    mkdir('public/assets', 0777, true);
+}
+
+$config = array(
+    'modules' => array(
+        'AsseticBundle',
+        'WidRestApiDocumentator',
+    ),
+    'module_listener_options' => array(
+        'config_glob_paths'    => array(
+            'tests/config/autoload/{,*.}{global,local}.php',
+        ),
+        'config_static_paths' => array(
+            'tests/config/autoload/assets.php',
+        ),
+        'module_paths' => array(
+            'WidRestApiDocumentator' => __DIR__
+        ),
+    ),
+);
+
+require_once 'vendor/autoload.php';
+
+$app = Zend\Mvc\Application::init($config);
+$app->run();
+```
