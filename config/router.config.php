@@ -1,11 +1,5 @@
 <?php
 return array(
-    'controllers' => array(
-        'invokables' => array(
-            'WidRestApiDocumentator\Controller\Docs' => 'WidRestApiDocumentator\Controller\DocsController',
-        ),
-    ),
-
     'router' => array(
         'routes' => array(
             'rest-api-docs' => array(
@@ -29,38 +23,6 @@ return array(
                             'defaults' => array(
                                 'action' => 'show',
                             ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-
-    'view_manager' => array(
-        'template_map' => array(
-            'wid-rest-api-documentator/docs/layout' => __DIR__ . '/../view/layout/layout.phtml',
-            'wid-rest-api-documentator/docs/list' => __DIR__ . '/../view/docs/list.phtml',
-            'wid-rest-api-documentator/docs/show' => __DIR__ . '/../view/docs/show.phtml',
-            'wid-rest-api-documentator/partials/params' => __DIR__ . '/../view/partials/params.phtml',
-        ),
-    ),
-
-    'assetic_configuration' => array(
-        'basePath' => 'public/assets',
-        'controllers' => array(
-            'WidRestApiDocumentator\Controller\Docs' => array(
-                '@zf2_rest_api_css',
-            ),
-        ),
-
-        'modules' => array(
-            'WidRestApiDocumentator' => array(
-                'root_path' => __DIR__ . '/../assets',
-                'collections' => array(
-                    'zf2_rest_api_css' => array(
-                        'assets' => array(
-                            'css/bootstrap.css',
-                            'css/main.css',
                         ),
                     ),
                 ),
