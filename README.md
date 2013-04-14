@@ -53,11 +53,9 @@ return array(
                             'description' => 'Limit API result to given value. Value must be between 1-100'
                         ),
                         'order' => array(
-                            'type' => 'enum',
+                            'type' => 'string',
                             'required' => false,
-                            'default' => 'asc',
-                            'enum' => array('asc', 'desc'),
-                            'description' => 'Retrieve API result ordered by given value'
+                            'description' => 'Retrieve API result ordered by given value. Acceptable values: asc, desc.'
                         ),
                     ),
                 ),
