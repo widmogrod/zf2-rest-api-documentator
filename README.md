@@ -129,18 +129,10 @@ return array(
 
 ### How to run this module without installing `ZendSkeletonApplication`
 
-  1. Create a `composer.json` file with following content:
-
-  ``` json
-  {
-      "require": {
-          "widmogrod/zf2-rest-api-documentator": "1.*"
-      }
-  }
-  ```
-
-  2. run `composer.phar install --dev`
-  3. create file `index.php` in module directory with content:
+  1. Clone this module `git@github.com:widmogrod/zf2-rest-api-documentator.git`
+  2. Go to module directory
+  3. run `composer.phar install --dev`
+  4. create file `index.php` in module directory with content:
 
 ``` php
 <?php
@@ -172,3 +164,5 @@ require_once 'vendor/autoload.php';
 $app = Zend\Mvc\Application::init($config);
 $app->run();
 ```
+
+  5. Run web server in this directory f.e. `php -S 127.0.0.1:8080`
