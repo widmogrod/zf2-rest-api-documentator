@@ -89,7 +89,7 @@ To see this result, enter in browser your application addres and go to route `/r
 ![Example API](https://raw.github.com/widmogrod/zf2-rest-api-documentator/master/assets/generated-api.png)
 
 ## Tips & treaks
-### Setup you own route name to your documentation.
+### Setup you own route to your documentation.
 
 ``` php
 <?php
@@ -129,8 +129,18 @@ return array(
 
 ### How to run this module without installing `ZendSkeletonApplication`
 
-  1. run `composer.phar install --dev`
-  2. create file `index.php` in module direcotry with content:
+  1. Create a `composer.json` file with following content:
+
+  ``` json
+  {
+      "require": {
+          "widmogrod/zf2-rest-api-documentator": "1.*"
+      }
+  }
+  ```
+
+  2. run `composer.phar install --dev`
+  3. create file `index.php` in module directory with content:
 
 ``` php
 <?php
