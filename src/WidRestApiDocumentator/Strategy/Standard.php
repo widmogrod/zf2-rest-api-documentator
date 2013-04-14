@@ -4,6 +4,7 @@ namespace WidRestApiDocumentator\Strategy;
 use WidRestApiDocumentator\ConfigInterface;
 use WidRestApiDocumentator\Exception;
 use WidRestApiDocumentator\Param\GenericParam;
+use WidRestApiDocumentator\ParamInterface;
 use WidRestApiDocumentator\ParamSet\ParamSet;
 use WidRestApiDocumentator\Resource;
 use WidRestApiDocumentator\ResourceInterface;
@@ -16,6 +17,11 @@ class Standard implements StrategyInterface
     const METHOD_POST = 'POST';
     const METHOD_PUT = 'PUT';
     const METHOD_DELETE = 'DELETE';
+
+    /**
+     * @var ParamSet
+     */
+    protected $generalParams;
 
     protected $availableMethods = array(
         self::METHOD_GET => true,
@@ -32,6 +38,9 @@ class Standard implements StrategyInterface
     public function parse(ConfigInterface $config)
     {
         $resultSet = new ResourceSet\StandardSet();
+
+        $this->parseGeneral($config->getGeneral());
+
         foreach ($config->getResources() as $definition => $options) {
             if (is_int($definition) && is_string($options)) {
                 $definition = $options;
@@ -100,6 +109,24 @@ class Standard implements StrategyInterface
         }
     }
 
+    protected function parseGeneral($general) {
+        $this->generalParams = new ParamSet();
+        if (!is_array($general)) {
+            return;
+        }
+
+        if (isset($general['params']) && !count($general['params'])) {
+            return;
+        }
+
+        foreach ((array) $general['params'] as $name => $options) {
+            $param = new GenericParam();
+            $param->setName($name);
+            $param->setOptions($options);
+            $this->generalParams->set($param);
+        }
+    }
+
     protected function parseQuery($query, ResourceInterface $resource)
     {
         // Replacement is done because when I use only
@@ -120,23 +147,12 @@ class Standard implements StrategyInterface
 
         $params = new ParamSet();
         foreach ($query as $name => $value) {
-            $param = new GenericParam();
-            $param->setName($name);
-
-            $pattern = sprintf('/%s/', $value);
-            switch (true) {
-                case false !== preg_match($pattern, '1234567890'):
-                    $param->getType($param::TYPE_INTEGER);
-                    break;
-                case false !== preg_match($pattern, 'abcdefghijklmnoprstuwyz'):
-                    $param->getType($param::TYPE_STRING);
-                    break;
+            if ($this->generalParams->has($name)) {
+                $param = clone $this->generalParams->get($name);
+            } else {
+                $param = new GenericParam();
+                $param->setName($name);
             }
-
-            if (false === preg_match($pattern, '')) {
-                $param->setRequired(true);
-            }
-
             $params->set($param);
         }
 

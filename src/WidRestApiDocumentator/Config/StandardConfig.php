@@ -9,6 +9,7 @@ class StandardConfig implements ConfigInterface
     protected $version;
     protected $uri;
     protected $strategy;
+    protected $general;
     protected $resources;
 
     public function setOptions(array $array)
@@ -69,5 +70,15 @@ class StandardConfig implements ConfigInterface
     public function getVersion()
     {
         return $this->version;
+    }
+
+    public function setGeneral($general)
+    {
+        $this->general = $general;
+    }
+
+    public function getGeneral()
+    {
+        return $this->general;
     }
 }

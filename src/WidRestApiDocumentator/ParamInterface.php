@@ -3,9 +3,9 @@ namespace WidRestApiDocumentator;
 
 interface ParamInterface
 {
-    const TYPE_MIXED = 1;
-    const TYPE_INTEGER = 2;
-    const TYPE_STRING = 4;
+    const TYPE_MIXED = 'mixed';
+    const TYPE_INTEGER = 'integer';
+    const TYPE_STRING = 'string';
 
     public function setName($value);
     public function getName();
@@ -15,4 +15,5 @@ interface ParamInterface
     public function getDescription();
     public function setRequired($value);
     public function isRequired();
+    public function setOptions(array $options);
 }

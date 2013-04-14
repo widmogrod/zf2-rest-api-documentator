@@ -18,6 +18,11 @@ class ParamSet extends \ArrayIterator implements ParamSetInterface
 
     public function get($param)
     {
-        return $this->offsetGet($param);
+        return $this->has($param) ? $this->offsetGet($param) : null;
+    }
+
+    public function has($param)
+    {
+        return $this->offsetExists($param);
     }
 }

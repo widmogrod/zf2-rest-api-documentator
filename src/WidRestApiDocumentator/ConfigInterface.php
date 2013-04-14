@@ -23,5 +23,9 @@ interface ConfigInterface
 
     public function getResources();
 
+    public function setGeneral($value);
+
+    public function getGeneral();
+
     public function setOptions(array $array);
 }
