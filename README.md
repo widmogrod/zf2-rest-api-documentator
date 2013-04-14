@@ -88,7 +88,7 @@ To see this result, enter in browser your application addres and go to route `/r
 
 ![Example API](https://raw.github.com/widmogrod/zf2-rest-api-documentator/master/assets/generated-api.png)
 
-## Tips & treaks
+## Tips & tricks
 ### Setup you own route to your documentation.
 
 ``` php
