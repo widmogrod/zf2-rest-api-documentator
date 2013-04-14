@@ -19,7 +19,11 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
      */
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return array_merge(
+            include __DIR__ . '/config/module.config.php',
+            include __DIR__ . '/config/router.config.php',
+            include __DIR__ . '/config/assets.config.php'
+        );
     }
 
     /**
