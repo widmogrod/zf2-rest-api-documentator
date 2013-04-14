@@ -1,7 +1,6 @@
 <?php
 return array(
     'assetic_configuration' => array(
-        'basePath' => 'public/assets',
         'controllers' => array(
             'WidRestApiDocumentator\Controller\Docs' => array(
                 '@zf2_rest_api_css',
@@ -16,6 +15,19 @@ return array(
                         'assets' => array(
                             'css/bootstrap.css',
                             'css/main.css',
+                        ),
+                        'filters' => array(
+                            '?CssRewriteFilter' => array(
+                                'name' => 'Assetic\Filter\CssRewriteFilter'
+                            )
+                        ),
+                    ),
+                    'zf2_rest_api_img' => array(
+                        'assets' => array(
+                            'img/*.png',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
                         ),
                     ),
                 ),
