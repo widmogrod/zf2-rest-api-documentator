@@ -18,6 +18,7 @@ $esc = $this->plugin('EscapeHtml');
     <span class="api-method api-method-<?= strtolower($esc($resource->getMethod()))?>"><?= $esc($resource->getMethod())?></span>
     <span class="api-url"><?= $esc($resource->getUrl())?></span>
     <p class="api-description muted"><?= $esc($resource->getDescription()); ?></p>
-    <?= $this->partial('wid-rest-api-documentator/partials/params', $resource->getParams()); ?>
+    <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getUrlParams(), 'header' => 'Url params')); ?>
+    <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getQueryParams(), 'header' => 'Query params')); ?>
 </div>
 <?php endforeach; ?>

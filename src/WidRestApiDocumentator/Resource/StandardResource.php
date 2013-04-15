@@ -8,7 +8,8 @@ use WidRestApiDocumentator\ResourceInterface;
 class StandardResource implements ResourceInterface
 {
     protected $method;
-    protected $params;
+    protected $queryParams;
+    protected $urlParams;
     protected $description;
     protected $uri;
 
@@ -32,17 +33,30 @@ class StandardResource implements ResourceInterface
         return $this->method;
     }
 
-    public function setParams(ParamSetInterface $params)
+    public function setQueryParams(ParamSetInterface $params)
     {
-        $this->params = $params;
+        $this->queryParams = $params;
     }
 
-    public function getParams()
+    public function getQueryParams()
     {
-        if (null === $this->params) {
-            $this->params = new ParamSet();
+        if (null === $this->queryParams) {
+            $this->queryParams = new ParamSet();
         }
-        return $this->params;
+        return $this->queryParams;
+    }
+
+    public function setUrlParams(ParamSetInterface $value)
+    {
+        $this->urlParams = $value;
+    }
+
+    public function getUrlParams()
+    {
+        if (null === $this->urlParams) {
+            $this->urlParams = new ParamSet();
+        }
+        return $this->urlParams;
     }
 
     public function setUrl($uri)

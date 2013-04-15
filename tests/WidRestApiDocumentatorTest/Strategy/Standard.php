@@ -91,7 +91,7 @@ class Standard extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider getParseSuccessProvider
      */
-    public function testParseSuccess($resurces, $methods, $params, $urls) {
+    public function testParseSuccess($resurces, $methods, $urlParams, $queryParams, $urls) {
         // prepare config mock
         {{
             $call = 0;
@@ -104,7 +104,7 @@ class Standard extends \PHPUnit_Framework_TestCase {
 
         foreach ($result as $key => $resource) {
             $this->assertArrayHasKey($key, $methods);
-            $this->assertArrayHasKey($key, $params);
+            $this->assertArrayHasKey($key, $queryParams);
             $this->assertArrayHasKey($key, $urls);
 
             /** @var $resource StandardResource */
@@ -112,11 +112,18 @@ class Standard extends \PHPUnit_Framework_TestCase {
             $this->assertEquals($methods[$key], $resource->getMethod());
             $this->assertEquals($urls[$key], $resource->getUrl());
 
-            $paramSet = $resource->getParams();
-            $this->assertInstanceOf('WidRestApiDocumentator\ParamSetInterface', $paramSet);
-            $this->assertEquals(count($params[$key]), count($paramSet));
-            foreach ($paramSet as $param) {
-                $this->assertArrayHasKey($param->getName(), $params[$key]);
+            $urlParamSet = $resource->geturlParams();
+            $this->assertInstanceOf('WidRestApiDocumentator\ParamSetInterface', $urlParamSet);
+            $this->assertEquals(count($urlParams[$key]), count($urlParamSet));
+            foreach ($urlParamSet as $param) {
+                $this->assertArrayHasKey($param->getName(), $urlParams[$key]);
+            }
+
+            $queryParamSet = $resource->getQueryParams();
+            $this->assertInstanceOf('WidRestApiDocumentator\ParamSetInterface', $queryParamSet);
+            $this->assertEquals(count($queryParams[$key]), count($queryParamSet));
+            foreach ($queryParamSet as $param) {
+                $this->assertArrayHasKey($param->getName(), $queryParams[$key]);
             }
         }
     }
@@ -128,7 +135,8 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'GET: /test'
                 ),
                 '$methods' => array('GET'),
-                '$params' => array(null),
+                '$urlParams' => array(null),
+                '$queryParams' => array(null),
                 '$urls' => array('/test'),
             ),
             'with query regexp' => array(
@@ -136,7 +144,8 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'GET : /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}'
                 ),
                 '$methods' => array('GET'),
-                '$params' => array(array('limit' => '[\d+]', 'order' => '(asc|desc)')),
+                '$urlParams' => array(array('id' => '[\d]+')),
+                '$queryParams' => array(array('limit' => '[\d+]', 'order' => '(asc|desc)')),
                 '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
             ),
             'with query' => array(
@@ -144,7 +153,8 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'GET : /keywords/{<id>[\d]+}/search_engines?limit=&order='
                 ),
                 '$methods' => array('GET'),
-                '$params' => array(array('limit' => '', 'order' => '')),
+                '$urlParams' => array(array('id' => '[\d]+')),
+                '$queryParams' => array(array('limit' => '', 'order' => '')),
                 '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
             ),
             'POST' => array(
@@ -152,7 +162,8 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'POST: /test'
                 ),
                 '$methods' => array('POST'),
-                '$params' => array(null),
+                '$urlParams' => array(null),
+                '$queryParams' => array(null),
                 '$urls' => array('/test'),
             ),
             'PUT' => array(
@@ -160,7 +171,8 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'PUT: /test'
                 ),
                 '$methods' => array('PUT'),
-                '$params' => array(null),
+                '$urlParams' => array(null),
+                '$queryParams' => array(null),
                 '$urls' => array('/test'),
             ),
             'DELETE' => array(
@@ -168,7 +180,8 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'DELETE: /test'
                 ),
                 '$methods' => array('DELETE'),
-                '$params' => array(null),
+                '$urlParams' => array(null),
+                '$queryParams' => array(null),
                 '$urls' => array('/test'),
             ),
         );
@@ -177,7 +190,7 @@ class Standard extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider getParseSuccessWithGeneralProvider
      */
-    public function testParseSuccessWithGeneral($general, $resources, $methods, $params, $urls) {
+    public function testParseSuccessWithGeneral($general, $resources, $methods, $urlParams, $queryParams, $urls) {
         // prepare config mock
         {{
             $call = 0;
@@ -191,7 +204,7 @@ class Standard extends \PHPUnit_Framework_TestCase {
 
         foreach ($result as $key => $resource) {
             $this->assertArrayHasKey($key, $methods);
-            $this->assertArrayHasKey($key, $params);
+            $this->assertArrayHasKey($key, $queryParams);
             $this->assertArrayHasKey($key, $urls);
 
             /** @var $resource StandardResource */
@@ -199,12 +212,23 @@ class Standard extends \PHPUnit_Framework_TestCase {
             $this->assertEquals($methods[$key], $resource->getMethod());
             $this->assertEquals($urls[$key], $resource->getUrl());
 
-            $paramSet = $resource->getParams();
-            $this->assertInstanceOf('WidRestApiDocumentator\ParamSetInterface', $paramSet);
-            $this->assertEquals(count($params[$key]), count($paramSet));
-            foreach ($paramSet as $param) {
-                $this->assertArrayHasKey($param->getName(), $params[$key]);
-                $paramOptions = $params[$key][$param->getName()];
+            $urlParamSet = $resource->getUrlParams();
+            $this->assertInstanceOf('WidRestApiDocumentator\ParamSetInterface', $urlParamSet);
+            $this->assertEquals(count($urlParams[$key]), count($urlParamSet));
+            foreach ($urlParamSet as $param) {
+                $this->assertArrayHasKey($param->getName(), $urlParams[$key]);
+                $paramOptions = $urlParams[$key][$param->getName()];
+                $this->assertEquals($paramOptions['description'], $param->getDescription());
+                $this->assertEquals($paramOptions['required'], $param->isRequired());
+                $this->assertEquals($paramOptions['type'], $param->getType());
+            }
+
+            $queryParamSet = $resource->getQueryParams();
+            $this->assertInstanceOf('WidRestApiDocumentator\ParamSetInterface', $queryParamSet);
+            $this->assertEquals(count($queryParams[$key]), count($queryParamSet));
+            foreach ($queryParamSet as $param) {
+                $this->assertArrayHasKey($param->getName(), $queryParams[$key]);
+                $paramOptions = $queryParams[$key][$param->getName()];
                 $this->assertEquals($paramOptions['description'], $param->getDescription());
                 $this->assertEquals($paramOptions['required'], $param->isRequired());
                 $this->assertEquals($paramOptions['type'], $param->getType());
@@ -222,12 +246,18 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'GET: /test'
                 ),
                 '$methods' => array('GET'),
-                '$params' => array(null),
+                '$urlParams' => array(null),
+                '$queryParams' => array(null),
                 '$urls' => array('/test'),
             ),
             'with query regexp' => array(
                 '$general' => array(
                     'params' => array(
+                        'id' => array(
+                            'type' => 'integer',
+                            'required' => true,
+                            'description' => 'ID of resource'
+                        ),
                         'limit' => array(
                             'type' => 'integer',
                             'required' => false,
@@ -244,7 +274,16 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     'GET : /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}'
                 ),
                 '$methods' => array('GET'),
-                '$params' => array(
+                '$urlParams' => array(
+                    array(
+                        'id' => array(
+                            'type' => 'integer',
+                            'required' => true,
+                            'description' => 'ID of resource'
+                        ),
+                    )
+                ),
+                '$queryParams' => array(
                     array(
                         'limit' => array(
                             'type' => 'integer',
@@ -260,38 +299,6 @@ class Standard extends \PHPUnit_Framework_TestCase {
                 ),
                 '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
             ),
-//            'with query' => array(
-//                '$resources' => array(
-//                    'GET : /keywords/{<id>[\d]+}/search_engines?limit=&order='
-//                ),
-//                '$methods' => array('GET'),
-//                '$params' => array(array('limit' => '', 'order' => '')),
-//                '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
-//            ),
-//            'POST' => array(
-//                '$resources' => array(
-//                    'POST: /test'
-//                ),
-//                '$methods' => array('POST'),
-//                '$params' => array(null),
-//                '$urls' => array('/test'),
-//            ),
-//            'PUT' => array(
-//                '$resources' => array(
-//                    'PUT: /test'
-//                ),
-//                '$methods' => array('PUT'),
-//                '$params' => array(null),
-//                '$urls' => array('/test'),
-//            ),
-//            'DELETE' => array(
-//                '$resources' => array(
-//                    'DELETE: /test'
-//                ),
-//                '$methods' => array('DELETE'),
-//                '$params' => array(null),
-//                '$urls' => array('/test'),
-//            ),
         );
     }
 }

@@ -96,6 +96,7 @@ class Standard implements StrategyInterface
 
         $resource->setMethod($method);
         $resource->setUrl($parts['path']);
+        $this->parseUrlParams($resource);
 
         if (array_key_exists('query', $parts)) {
             $this->parseQuery($parts['query'], $resource);
@@ -127,6 +128,25 @@ class Standard implements StrategyInterface
         }
     }
 
+    protected function parseUrlParams(ResourceInterface $resource) {
+        $params = new ParamSet();
+        preg_replace_callback('/{<(?<name>.+)>(?<value>.*)}/', function ($matches) use ($params) {
+            // $value = $matches['value'];
+            $name = $matches['name'];
+
+            if ($this->generalParams->has($name)) {
+                $param = clone $this->generalParams->get($name);
+            } else {
+                $param = new GenericParam();
+                $param->setName($name);
+            }
+            $params->set($param);
+
+            return '<' . $name . '>';
+        }, $resource->getUrl());
+        $resource->setUrlParams($params);
+    }
+
     protected function parseQuery($query, ResourceInterface $resource)
     {
         // Replacement is done because when I use only
@@ -156,6 +176,6 @@ class Standard implements StrategyInterface
             $params->set($param);
         }
 
-        $resource->setParams($params);
+        $resource->setQueryParams($params);
     }
 }

@@ -5,12 +5,18 @@ interface ResourceInterface
 {
     public function setMethod($value);
     public function getMethod();
-    public function setParams(ParamSetInterface $value);
+    public function setQueryParams(ParamSetInterface $value);
 
     /**
      * @return ParamSetInterface
      */
-    public function getParams();
+    public function getQueryParams();
+    public function setUrlParams(ParamSetInterface $value);
+
+    /**
+     * @return ParamSetInterface
+     */
+    public function getUrlParams();
     public function setDescription($value);
     public function getDescription();
     public function setUrl($value);
