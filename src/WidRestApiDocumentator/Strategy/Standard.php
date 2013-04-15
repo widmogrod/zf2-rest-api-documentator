@@ -129,13 +129,14 @@ class Standard implements StrategyInterface
     }
 
     protected function parseUrlParams(ResourceInterface $resource) {
+        $generalParams = $this->generalParams;
         $params = new ParamSet();
-        preg_replace_callback('/{<(?<name>.+)>(?<value>.*)}/', function ($matches) use ($params) {
+        preg_replace_callback('/{<(?<name>.+)>(?<value>.*)}/', function ($matches) use ($params, $generalParams) {
             // $value = $matches['value'];
             $name = $matches['name'];
 
-            if ($this->generalParams->has($name)) {
-                $param = clone $this->generalParams->get($name);
+            if ($generalParams->has($name)) {
+                $param = clone $generalParams->get($name);
             } else {
                 $param = new GenericParam();
                 $param->setName($name);
