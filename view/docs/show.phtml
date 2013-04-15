@@ -8,7 +8,10 @@ $resourceSet = $data->getResourceSet();
 $esc = $this->plugin('EscapeHtml');
 ?>
 <h1><?= $config->getName() ?> <span class="label label-info"><?= $config->getVersion()?></span></h1>
+
+<?php if ($this->showBackLink): ?>
 <p><a href="<?= $this->url('rest-api-docs')?>"><i class="icon-chevron-left"></i> Go back to list</a></p>
+<?php endif;?>
 
 <?php foreach($resourceSet as $resource): ?>
 <div class="entrypoint">

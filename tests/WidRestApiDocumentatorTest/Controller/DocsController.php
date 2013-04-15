@@ -115,6 +115,51 @@ class DocsController extends \PHPUnit_Framework_TestCase
             'simple' => array(
                 '$id' => 'asdasd',
             ),
+            'dots in name' => array(
+                '$id' => 'as.da.sd',
+            ),
+            'strage params' => array(
+                '$id' => '123dasd123!@#',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider tetShowBackButtonDefaultProvider
+     */
+    public function testShowBackButtonDefault($id, $backLinkValue, $expectedBackLink)
+    {
+        $this->docs->expects($this->once())->method('getOne')->with($id);
+        $this->routeMatch->setParam('action', 'show');
+        $this->routeMatch->setParam('id', $id);
+        if (null !== $backLinkValue){
+            $this->routeMatch->setParam('show_back_link', $backLinkValue);
+        }
+        $result = $this->object->dispatch($this->request, $this->response);
+        $this->assertInternalType('array', $result);
+        $this->assertArrayHasKey('data', $result);
+        $this->assertArrayHasKey('showBackLink', $result);
+        $this->assertEquals($expectedBackLink, $result['showBackLink']);
+    }
+
+    public function tetShowBackButtonDefaultProvider()
+    {
+        return array(
+            'default back' => array(
+                '$id' => 'asdasd',
+                '$backLinkValue' => null,
+                '$expectedBackLink' => true,
+            ),
+            'back disabled' => array(
+                '$id' => 'asdasd',
+                '$backLinkValue' => 0,
+                '$expectedBackLink' => false,
+            ),
+            'back enabled' => array(
+                '$id' => 'asdasd',
+                '$backLinkValue' => 1,
+                '$expectedBackLink' => true,
+            ),
         );
     }
 }

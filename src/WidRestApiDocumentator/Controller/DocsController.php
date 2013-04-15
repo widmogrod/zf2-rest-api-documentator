@@ -31,9 +31,11 @@ class DocsController extends AbstractActionController
         $this->layout()->setTemplate('wid-rest-api-documentator/docs/layout');
 
         $id = $this->params('id');
+        $showBackLink = $this->params('show_back_link', 1);
         $service = $this->getApiService();
         return array(
-            'data' => $service->getOne($id)
+            'data' => $service->getOne($id),
+            'showBackLink' => (bool) $showBackLink
         );
     }
 }

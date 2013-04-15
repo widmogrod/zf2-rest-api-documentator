@@ -105,6 +105,8 @@ return array(
                         'action' => 'show',
                         // NOTE: "my_module_name" is name of key in which your documentation was defined (see usage above)
                         'id' => 'my_module_name',
+                        // NOTE: This param, will disable back to list button. Is optional. Defaut value is "1".
+                        'show_back_link' => 0,
 ))))));
 ```
 
