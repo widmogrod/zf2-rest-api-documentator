@@ -1,13 +1,15 @@
 <?php
 /** @var $data \WidRestApiDocumentator\DataInterface */
+/** @var $param \WidRestApiDocumentator\ParamInterface */
+$esc = $this->plugin('EscapeHtml');
 ?>
 <h1>REST API Documentations</h1>
 <ul class="api-list">
     <?php foreach($this->dataSet as $data): ?>
     <li class="api-item">
         <h2><a href="<?= $this->url('rest-api-docs/show', array('id' => $data->getId()))?>">
-            <?= $data->getConfig()->getName() ?>
-            <span class="label label-info"><?= $data->getConfig()->getVersion()?></span>
+            <?= $esc($data->getConfig()->getName()); ?>
+            <span class="label label-info"><?= $esc($data->getConfig()->getVersion()); ?></span>
         </a></h2>
     </li>
     <?php endforeach; ?>

@@ -4,7 +4,7 @@ if (!count($params)) {
     return;
 }
 /** @var $param \WidRestApiDocumentator\ParamInterface */
-
+$esc = $this->plugin('EscapeHtml');
 ?>
 <div class="api-params">
     <h5>Query params</h5>
@@ -17,10 +17,10 @@ if (!count($params)) {
         </tr>
         <?php foreach($params as $param): ?>
             <tr>
-                <td><?= $param->getName() ?></td>
-                <td><?= $param->getType() ?></td>
-                <td><?= $param->isRequired() ? 'yes' : 'no' ?></td>
-                <td><?= $param->getDescription() ?></td>
+                <td><?= $esc($param->getName()) ?></td>
+                <td><?= $esc($param->getType()) ?></td>
+                <td><?= $esc($param->isRequired() ? 'yes' : 'no') ?></td>
+                <td><?= $esc($param->getDescription()) ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
