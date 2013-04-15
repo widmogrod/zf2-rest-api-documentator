@@ -18,7 +18,7 @@ return array(
                         'options' => array(
                             'route' => '/:id',
                             'constraints' => array(
-                                'id' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                                'id' => '[^/ ]+',
                             ),
                             'defaults' => array(
                                 'action' => 'show',
