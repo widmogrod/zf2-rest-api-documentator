@@ -55,10 +55,22 @@
 .api-params {
     padding-top: 10px;
 }
+.param-placeholder {
+    width: 65px;
+    border: 0;
+    background: transparent;
+    outline: 0;
+    border-bottom: 1px dashed #eee;
+}
 
+.toggable-response,
 .toggable {
     display: none;
 }
 .show {
     display: block;
+}
+.response {
+    width: 98%;
+    height: 150px;
 }

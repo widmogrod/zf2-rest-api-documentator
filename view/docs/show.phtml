@@ -16,9 +16,30 @@ $esc = $this->plugin('EscapeHtml');
 <?php foreach($resourceSet as $resource): ?>
 <div class="entrypoint">
     <span class="api-method api-method-<?= strtolower($esc($resource->getMethod()))?>"><?= $esc($resource->getMethod())?></span>
-    <span class="api-url"><a href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" target="_blank"><i class="icon-share-alt"></i></a> <?= $esc($resource->getUrl())?></span>
+    <span class="api-url">
+        <span data-href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" class="test-request"><i class="icon-play"></i></span>
+        <a href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" target="_blank"><i class="icon-share-alt"></i></a>
+        <?php
+            if (false !== strpos($resource->getUrl(), '{')) {
+                $urlParams = $resource->getUrlParams();
+                $urlParams->rewind();
+                echo preg_replace_callback('/(?<value>{[^}]+})/', function($matches) use($urlParams){
+                    $param = $urlParams->current();
+                    $urlParams->next();
+                    return sprintf('<input name="%s" placeholder="%s" class="param-placeholder"/>', $param->getName(), $matches['value']);
+                }, $resource->getUrl());
+            } else {
+                echo $esc($resource->getUrl());
+            }
+        ?>
+    </span>
     <p class="api-description muted"><?= $esc($resource->getDescription()); ?></p>
     <div class="toggable">
+        <div class="toggable-response">
+            <h4>Response body</h4>
+            <textarea class="response"></textarea>
+        </div>
+
         <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getUrlParams(), 'header' => 'Url params')); ?>
         <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getQueryParams(), 'header' => 'Query params')); ?>
     </div>
