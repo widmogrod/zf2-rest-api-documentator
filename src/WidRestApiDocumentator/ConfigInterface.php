@@ -11,9 +11,9 @@ interface ConfigInterface
 
     public function getVersion();
 
-    public function setUri($value);
+    public function setBaseUrl($value);
 
-    public function getUri();
+    public function getBaseUrl();
 
     public function setStrategy($value);
 

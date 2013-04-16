@@ -4,6 +4,7 @@ return array(
         'controllers' => array(
             'WidRestApiDocumentator\Controller\Docs' => array(
                 '@zf2_rest_api_css',
+                '@zf2_rest_api_js',
             ),
         ),
 
@@ -20,6 +21,12 @@ return array(
                             '?CssRewriteFilter' => array(
                                 'name' => 'Assetic\Filter\CssRewriteFilter'
                             )
+                        ),
+                    ),
+                    'zf2_rest_api_js' => array(
+                        'assets' => array(
+                            'js/jquery-1.9.1.min.js',
+                            'js/main.js',
                         ),
                     ),
                     'zf2_rest_api_img' => array(

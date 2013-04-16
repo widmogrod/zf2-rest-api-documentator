@@ -7,7 +7,7 @@ class StandardConfig implements ConfigInterface
 {
     protected $name;
     protected $version;
-    protected $uri;
+    protected $baseUrl;
     protected $strategy;
     protected $general;
     protected $resources;
@@ -22,14 +22,14 @@ class StandardConfig implements ConfigInterface
         }
     }
 
-    public function setUri($value)
+    public function setBaseUrl($value)
     {
-        $this->uri = $value;
+        $this->baseUrl = $value;
     }
 
-    public function getUri()
+    public function getBaseUrl()
     {
-        return $this->uri;
+        return $this->baseUrl;
     }
 
     public function setName($value)

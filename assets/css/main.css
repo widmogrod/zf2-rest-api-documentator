@@ -23,6 +23,7 @@
 }
 .api-method {
     position: absolute;
+    cursor: pointer;
     top: -1px;
     left: -1px;
     padding: 3px 7px;
@@ -53,4 +54,11 @@
 }
 .api-params {
     padding-top: 10px;
+}
+
+.toggable {
+    display: none;
+}
+.show {
+    display: block;
 }

@@ -10,7 +10,7 @@ return array(
             'simple' => array(
                 'name' => 'api.example.com',
                 'version' => '1.1',
-                'baseUrl' => 'http://api.example.com/api',
+                'baseUrl' => 'http://127.0.0.1:8080/api',
                 'strategy' => 'standard',
                 'general' => array(
                     'params' => array(

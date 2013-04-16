@@ -11,14 +11,16 @@ $esc = $this->plugin('EscapeHtml');
 
 <?php if ($this->showBackLink): ?>
 <p><a href="<?= $this->url('rest-api-docs')?>"><i class="icon-chevron-left"></i> Go back to list</a></p>
-<?php endif;?>
+<?php endif; ?>
 
 <?php foreach($resourceSet as $resource): ?>
 <div class="entrypoint">
     <span class="api-method api-method-<?= strtolower($esc($resource->getMethod()))?>"><?= $esc($resource->getMethod())?></span>
-    <span class="api-url"><?= $esc($resource->getUrl())?></span>
+    <span class="api-url"><a href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" target="_blank"><i class="icon-share-alt"></i></a> <?= $esc($resource->getUrl())?></span>
     <p class="api-description muted"><?= $esc($resource->getDescription()); ?></p>
-    <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getUrlParams(), 'header' => 'Url params')); ?>
-    <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getQueryParams(), 'header' => 'Query params')); ?>
+    <div class="toggable">
+        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getUrlParams(), 'header' => 'Url params')); ?>
+        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getQueryParams(), 'header' => 'Query params')); ?>
+    </div>
 </div>
 <?php endforeach; ?>
