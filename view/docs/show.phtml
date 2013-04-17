@@ -18,7 +18,6 @@ $esc = $this->plugin('EscapeHtml');
     <span class="api-method api-method-<?= strtolower($esc($resource->getMethod()))?>"><?= $esc($resource->getMethod())?></span>
     <span class="api-url">
         <span data-href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" class="test-request"><i class="icon-play"></i></span>
-        <a href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" target="_blank"><i class="icon-share-alt"></i></a>
         <?php
             // TODO: This, should be move to helper.
             $urlParams = $resource->getUrlParams();
