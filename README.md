@@ -1,8 +1,4 @@
-# Module generating REST API documentation v1.1.0
-## Stability
-[![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator) - master
-[![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=devel)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator) - devel
-
+# Module generating REST API documentation v1.1.0 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
 ## Introduction
 
 This module allow to create quick documentation of your REST API.
@@ -172,3 +168,7 @@ $app->run();
 ```
 
   5. Run web server in this directory f.e. `php -S 127.0.0.1:8080`
+
+## Stability
+ * [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)  on branch master
+ * [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=devel)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)  on branch devel
