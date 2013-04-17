@@ -32,9 +32,9 @@ return array(
                 ),
                 'resources' => array(
                     'GET: /keywords' => 'Fetch list of keywords',
-                    'GET: /keywords/{<id>[\d]+}' => 'Fetch specific keyword',
-                    'GET: /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}',
-                    'GET: /keywords/{<id>[\d]+}/domains_positions_in_search_engine',
+                    'GET: /keywords/<id>' => 'Fetch specific keyword',
+                    'GET: /keywords/<id>/search_engines?limit=&order=',
+                    'GET: /keywords/<id>/domains_positions_in_search_engine',
                 ),
             ),
         ),
