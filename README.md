@@ -88,6 +88,13 @@ To see this result, enter in browser your application addres and go to route `/r
 
 ![Example API](https://raw.github.com/widmogrod/zf2-rest-api-documentator/master/assets/generated-api.png)
 
+
+## Stability
+[![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)  on branch master
+
+[![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=devel)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)  on branch devel
+
+
 ## Tips & tricks
 ### Setup you own route to your documentation.
 
@@ -168,7 +175,3 @@ $app->run();
 ```
 
   5. Run web server in this directory f.e. `php -S 127.0.0.1:8080`
-
-## Stability
- * [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)  on branch master
- * [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=devel)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)  on branch devel
