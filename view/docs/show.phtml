@@ -20,10 +20,10 @@ $esc = $this->plugin('EscapeHtml');
         <span data-href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" class="test-request"><i class="icon-play"></i></span>
         <a href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" target="_blank"><i class="icon-share-alt"></i></a>
         <?php
-            if (false !== strpos($resource->getUrl(), '{')) {
-                $urlParams = $resource->getUrlParams();
+            $urlParams = $resource->getUrlParams();
+            if (count($urlParams)) {
                 $urlParams->rewind();
-                echo preg_replace_callback('/(?<value>{[^}]+})/', function($matches) use($urlParams){
+                echo preg_replace_callback('/(?<value><[^>]+>)/', function($matches) use($urlParams){
                     $param = $urlParams->current();
                     $urlParams->next();
                     return sprintf('<input name="%s" placeholder="%s" class="param-placeholder"/>', $param->getName(), $matches['value']);

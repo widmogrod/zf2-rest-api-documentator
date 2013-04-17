@@ -39,6 +39,7 @@ class Standard implements StrategyInterface
     {
         $resultSet = new ResourceSet\StandardSet();
 
+        $this->generalParams = new ParamSet();
         $this->parseGeneral($config->getGeneral());
 
         foreach ($config->getResources() as $definition => $options) {
@@ -107,11 +108,16 @@ class Standard implements StrategyInterface
     {
         if (is_string($options)) {
             $resource->setDescription($options);
+        } else if (is_array($options)) {
+            $this->parseGeneral($options);
+            if (array_key_exists('description', $options)) {
+                $resource->setDescription($options['description']);
+            }
         }
     }
 
-    protected function parseGeneral($general) {
-        $this->generalParams = new ParamSet();
+    protected function parseGeneral($general)
+    {
         if (!is_array($general)) {
             return;
         }
@@ -120,7 +126,7 @@ class Standard implements StrategyInterface
             return;
         }
 
-        foreach ((array) $general['params'] as $name => $options) {
+        foreach ((array)$general['params'] as $name => $options) {
             $param = new GenericParam();
             $param->setName($name);
             $param->setOptions($options);
@@ -128,10 +134,11 @@ class Standard implements StrategyInterface
         }
     }
 
-    protected function parseUrlParams(ResourceInterface $resource) {
+    protected function parseUrlParams(ResourceInterface $resource)
+    {
         $generalParams = $this->generalParams;
         $params = new ParamSet();
-        preg_replace_callback('/{<(?<name>.+)>(?<value>.*)}/', function ($matches) use ($params, $generalParams) {
+        preg_replace_callback('/<(?<name>[^}>\/]+)>/', function ($matches) use ($params, $generalParams) {
             // $value = $matches['value'];
             $name = $matches['name'];
 
@@ -150,22 +157,7 @@ class Standard implements StrategyInterface
 
     protected function parseQuery($query, ResourceInterface $resource)
     {
-        // Replacement is done because when I use only
-        // "parse_str" function chars like "+" were converted to " "
-        $params = array();
-        $replaced = preg_replace_callback('/{([^}]+)}/', function ($matches) use (&$params) {
-            $value = $matches[1];
-            $key = count($params);
-            $params[$key] = $value;
-            return '{' . $key . '}';
-        }, $query);
-
-        parse_str($replaced, $query);
-
-        $query = array_map(function ($value) use (&$params) {
-            return preg_replace('/{([^}]+)}/e', "\$params[\$1]", $value);
-        }, $query);
-
+        parse_str($query, $query);
         $params = new ParamSet();
         foreach ($query as $name => $value) {
             if ($this->generalParams->has($name)) {
@@ -176,7 +168,6 @@ class Standard implements StrategyInterface
             }
             $params->set($param);
         }
-
         $resource->setQueryParams($params);
     }
 }
