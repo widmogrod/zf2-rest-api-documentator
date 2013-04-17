@@ -20,6 +20,7 @@ $esc = $this->plugin('EscapeHtml');
         <span data-href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" class="test-request"><i class="icon-play"></i></span>
         <a href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" target="_blank"><i class="icon-share-alt"></i></a>
         <?php
+            // TODO: This, should be move to helper.
             $urlParams = $resource->getUrlParams();
             if (count($urlParams)) {
                 $urlParams->rewind();

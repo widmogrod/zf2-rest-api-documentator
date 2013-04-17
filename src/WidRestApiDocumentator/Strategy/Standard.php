@@ -138,7 +138,7 @@ class Standard implements StrategyInterface
     {
         $generalParams = $this->generalParams;
         $params = new ParamSet();
-        preg_replace_callback('/<(?<name>[^}>\/]+)>/', function ($matches) use ($params, $generalParams) {
+        preg_replace_callback('/<(?<name>[^>\/]+)>/', function ($matches) use ($params, $generalParams) {
             // $value = $matches['value'];
             $name = $matches['name'];
 
