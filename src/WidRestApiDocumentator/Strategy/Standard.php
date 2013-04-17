@@ -60,8 +60,8 @@ class Standard implements StrategyInterface
             }
 
             $resource = new Resource\StandardResource();
-            $this->parseDefinition($definition, $resource);
             $this->parseOptions($options, $resource);
+            $this->parseDefinition($definition, $resource);
             $resultSet->append($resource);
         }
         return $resultSet;
