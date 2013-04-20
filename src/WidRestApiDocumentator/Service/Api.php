@@ -1,67 +1,54 @@
 <?php
 namespace WidRestApiDocumentator\Service;
 
-use WidRestApiDocumentator\Config\StandardConfig;
-use WidRestApiDocumentator\Data\GenericData;
-use WidRestApiDocumentator\DataSet\StandardSet;
-use WidRestApiDocumentator\Exception\DomainException;
 use WidRestApiDocumentator\Strategy\Standard;
-use WidRestApiDocumentator\StrategyInterface;
-use WidRestApiDocumentator\StrategyManager;
+use Zend\Http\Client;
+use Zend\Stdlib\ParametersInterface;
 
-class Docs
+class Api
 {
     /**
-     * @var array
+     * @var Docs
      */
-    protected $options;
+    protected $docs;
 
-    /**
-     * @var StrategyManager
-     */
-    protected $strategyManager;
-
-    public function __construct(array $options, StrategyManager $strategyManager)
+    public function __construct(Docs $docs)
     {
-        $this->options = $options;
-        $this->strategyManager = $strategyManager;
+        $this->docs = $docs;
     }
 
-    public function build($id, array $options)
+    public function perform($id, $endpoint, ParametersInterface $params)
     {
-        $config = new StandardConfig();
-        $config->setOptions($options);
-        /** @var $strategy StrategyInterface */
-        $strategy = $this->strategyManager->get($config->getStrategy());
-        $resourceSet = $strategy->parse($config);
-        return new GenericData($id, $config, $resourceSet);
+        $api = $this->docs->getOne($id);
+        $resourceSet = $api->getResourceSet();
+        $resourceSet->seek($endpoint);
+        $resource = $resourceSet->current();
+
+        $config = $api->getConfig();
+        $uri = $config->getBaseUrl() . $resource->getUrl();
+
+        // TODO: This, should be move to helper.
+        $urlParams = $resource->getUrlParams();
+        if (count($urlParams)) {
+            $urlParams->rewind();
+            $uri = preg_replace_callback('/(?<value><[^>]+>)/', function($matches) use($urlParams, $params){
+                $param = $urlParams->current();
+                $urlParams->next();
+                return $params->get($param->getName());
+            }, $uri);
+        }
+
+        /** @var $client Client */
+        $client = $this->getHttpClient();
+        $client->setMethod($resource->getMethod());
+        $client->setUri($uri);
+//        $client->set
+        $response = $client->send();
+        return $response->getBody();
     }
 
-    public function getList($page = null, $limit = null)
+    public function getHttpClient()
     {
-        $result = new StandardSet();
-
-        $data = $this->options;
-        if (null !== $limit) {
-            $limit = ($limit > 0) ? (int)$limit : 10;
-            $page = ($page > 1) ? ((int)$page - 1) : 0;
-            $data = array_slice($data, $page * $limit, $limit);
-        }
-
-        foreach ($data as $id => $options) {
-            $result->append($this->build($id, $options));
-        }
-        return $result;
-    }
-
-    public function getOne($id)
-    {
-        if (!array_key_exists($id, $this->options)) {
-            $message = 'Such id "%s" does not exists';
-            $message = sprintf($message, $id);
-            throw new DomainException($message);
-        }
-
-        return $this->build($id, $this->options[$id]);
+        return new Client();
     }
 }
