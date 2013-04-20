@@ -55,6 +55,11 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
                 'RestApiDocs' => 'WidRestApiDocumentator\Service\Docs',
             ),
             'factories' => array(
+                'WidRestApiDocumentator\Service\Api' => function (ServiceLocatorInterface $service) {
+                    /** @var $docs Service\Docs */
+                    $docs = $service->get('WidRestApiDocumentator\Service\Docs');
+                    return new Service\Api($docs);
+                },
                 'WidRestApiDocumentator\Service\Docs' => function (ServiceLocatorInterface $service) {
                     $config = (array) $service->get('Config');
                     $options = (array) isset($config, $config['zf2-rest-api-documentator'], $config['zf2-rest-api-documentator']['docs']) ? $config['zf2-rest-api-documentator']['docs'] : array();
