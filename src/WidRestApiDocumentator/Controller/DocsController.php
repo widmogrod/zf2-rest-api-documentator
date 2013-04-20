@@ -34,6 +34,7 @@ class DocsController extends AbstractActionController
         $showBackLink = $this->params('show_back_link', 1);
         $service = $this->getApiService();
         return array(
+            'id' => $id,
             'data' => $service->getOne($id),
             'showBackLink' => (bool) $showBackLink
         );
