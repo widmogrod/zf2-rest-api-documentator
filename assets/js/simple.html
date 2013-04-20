@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title><link href="/public/assets/zf2_rest_api_css.1366483747.css" media="screen" rel="stylesheet" type="text/css"></head>
+<body>
+<div class="container">
+    <h1>api.example.com <span class="label label-info">1.1</span></h1>
+<p><a href="/rest-api-docs"><i class="icon-chevron-left"></i> Go back to list</a></p>
+
+<div class="api-entrypoint">
+    <div class="row">
+        <div class="span1">
+            <button class="btn btn-mini api-request-action"
+                    type="button"
+                    data-api-url="/rest-api-docs/simple/0">
+
+                <span class="api-method api-method-get" >
+                    GET                </span>
+                <i class="icon-play"></i>
+            </button>
+        </div>
+        <div class="span11 api-info">
+            <span class="api-url">
+                /keywords            </span>
+
+                            <p class="api-description muted"><small>Fetch list of keywords</small></p>
+                    </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs">
+                    
+                    <li class="active"><a href="#response-0" data-toggle="tab">Response body</a></li>
+                </ul>
+                <div class="tab-content">
+                    
+                    <div class="tab-pane" id="response-0">
+                        <div class="toggable-response">
+                            <pre class="api-response prettyprint">Response wasn't received. Run endpoint request to see result.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="api-entrypoint">
+    <div class="row">
+        <div class="span1">
+            <button class="btn btn-mini api-request-action"
+                    type="button"
+                    data-api-url="/rest-api-docs/simple/1">
+
+                <span class="api-method api-method-get" >
+                    GET                </span>
+                <i class="icon-play"></i>
+            </button>
+        </div>
+        <div class="span11 api-info">
+            <span class="api-url">
+                /keywords/<input name="urlParams[id]" placeholder="<id>" class="api-param-placeholder"/>            </span>
+
+                            <p class="api-description muted"><small>Fetch specific keyword</small></p>
+                    </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs">
+                                        <li><a href="#params-1" data-toggle="tab">Options</a></li>
+                    
+                    <li class=""><a href="#response-1" data-toggle="tab">Response body</a></li>
+                </ul>
+                <div class="tab-content">
+                                        <div class="tab-pane" id="params-1">
+                        <div class="api-params">
+    <h5>Url params</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th class="span2">Name</th>
+            <th class="span1">Type</th>
+            <th class="span1">Value</th>
+            <th class="span1">Required</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>id</td>
+                <td>integer</td>
+                <td><input name="urlParams[id]" class="api-param-value"/></td>
+                <td>yes</td>
+                <td>Resource identificator</td>
+            </tr>
+            </table>
+</div>                                            </div>
+                    
+                    <div class="tab-pane" id="response-1">
+                        <div class="toggable-response">
+                            <pre class="api-response prettyprint">Response wasn't received. Run endpoint request to see result.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="api-entrypoint">
+    <div class="row">
+        <div class="span1">
+            <button class="btn btn-mini api-request-action"
+                    type="button"
+                    data-api-url="/rest-api-docs/simple/2">
+
+                <span class="api-method api-method-get" >
+                    GET                </span>
+                <i class="icon-play"></i>
+            </button>
+        </div>
+        <div class="span11 api-info">
+            <span class="api-url">
+                /keywords/<input name="urlParams[id]" placeholder="<id>" class="api-param-placeholder"/>/search_engines            </span>
+
+                    </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs">
+                                        <li><a href="#params-2" data-toggle="tab">Options</a></li>
+                    
+                    <li class=""><a href="#response-2" data-toggle="tab">Response body</a></li>
+                </ul>
+                <div class="tab-content">
+                                        <div class="tab-pane" id="params-2">
+                        <div class="api-params">
+    <h5>Url params</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th class="span2">Name</th>
+            <th class="span1">Type</th>
+            <th class="span1">Value</th>
+            <th class="span1">Required</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>id</td>
+                <td>integer</td>
+                <td><input name="urlParams[id]" class="api-param-value"/></td>
+                <td>yes</td>
+                <td>Resource identificator</td>
+            </tr>
+            </table>
+</div>                        <div class="api-params">
+    <h5>Query params</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th class="span2">Name</th>
+            <th class="span1">Type</th>
+            <th class="span1">Value</th>
+            <th class="span1">Required</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>limit</td>
+                <td>integer</td>
+                <td><input name="queryParams[limit]" class="api-param-value"/></td>
+                <td>no</td>
+                <td>Limit API result to given value. Value must be between 1-100</td>
+            </tr>
+                    <tr>
+                <td>order</td>
+                <td>string</td>
+                <td><input name="queryParams[order]" class="api-param-value"/></td>
+                <td>no</td>
+                <td>Retrieve API result ordered by given value</td>
+            </tr>
+            </table>
+</div>                    </div>
+                    
+                    <div class="tab-pane" id="response-2">
+                        <div class="toggable-response">
+                            <pre class="api-response prettyprint">Response wasn't received. Run endpoint request to see result.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="api-entrypoint">
+    <div class="row">
+        <div class="span1">
+            <button class="btn btn-mini api-request-action"
+                    type="button"
+                    data-api-url="/rest-api-docs/simple/3">
+
+                <span class="api-method api-method-get" >
+                    GET                </span>
+                <i class="icon-play"></i>
+            </button>
+        </div>
+        <div class="span11 api-info">
+            <span class="api-url">
+                /keywords/<input name="urlParams[id]" placeholder="<id>" class="api-param-placeholder"/>/domains_positions_in_search_engine            </span>
+
+                    </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs">
+                                        <li><a href="#params-3" data-toggle="tab">Options</a></li>
+                    
+                    <li class=""><a href="#response-3" data-toggle="tab">Response body</a></li>
+                </ul>
+                <div class="tab-content">
+                                        <div class="tab-pane" id="params-3">
+                        <div class="api-params">
+    <h5>Url params</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th class="span2">Name</th>
+            <th class="span1">Type</th>
+            <th class="span1">Value</th>
+            <th class="span1">Required</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>id</td>
+                <td>integer</td>
+                <td><input name="urlParams[id]" class="api-param-value"/></td>
+                <td>yes</td>
+                <td>Resource identificator</td>
+            </tr>
+            </table>
+</div>                                            </div>
+                    
+                    <div class="tab-pane" id="response-3">
+                        <div class="toggable-response">
+                            <pre class="api-response prettyprint">Response wasn't received. Run endpoint request to see result.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="/public/assets/zf2_rest_api_js.1366484470.js"></script></body>
+</html>
