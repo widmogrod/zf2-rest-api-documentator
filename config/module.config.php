@@ -3,6 +3,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'WidRestApiDocumentator\Controller\Docs' => 'WidRestApiDocumentator\Controller\DocsController',
+            'WidRestApiDocumentator\Controller\Api' => 'WidRestApiDocumentator\Controller\ApiController',
         ),
     ),
 
