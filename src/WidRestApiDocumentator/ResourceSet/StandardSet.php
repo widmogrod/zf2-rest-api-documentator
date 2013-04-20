@@ -1,12 +1,14 @@
 <?php
 namespace WidRestApiDocumentator\ResourceSet;
 
+use WidRestApiDocumentator\Exception\OutOfBoundsException;
 use WidRestApiDocumentator\ResourceInterface;
 use WidRestApiDocumentator\ResourceSetInterface;
 
-class StandardSet implements ResourceSetInterface {
+class StandardSet implements ResourceSetInterface
+{
     protected $resources = array();
-    protected $pointer = 0;
+    protected $position = 0;
     protected $count = 0;
 
     /**
@@ -14,7 +16,7 @@ class StandardSet implements ResourceSetInterface {
      */
     public function current()
     {
-        return $this->resources[$this->pointer];
+        return $this->resources[$this->position];
     }
 
     /**
@@ -22,7 +24,7 @@ class StandardSet implements ResourceSetInterface {
      */
     public function next()
     {
-        ++$this->pointer;
+        ++$this->position;
     }
 
     /**
@@ -30,7 +32,7 @@ class StandardSet implements ResourceSetInterface {
      */
     public function key()
     {
-        return $this->pointer;
+        return $this->position;
     }
 
     /**
@@ -38,7 +40,7 @@ class StandardSet implements ResourceSetInterface {
      */
     public function valid()
     {
-        return $this->pointer < $this->count;
+        return $this->position < $this->count;
     }
 
     /**
@@ -46,7 +48,7 @@ class StandardSet implements ResourceSetInterface {
      */
     public function rewind()
     {
-        $this->pointer = 0;
+        $this->position = 0;
     }
 
     /**
@@ -57,6 +59,23 @@ class StandardSet implements ResourceSetInterface {
     public function count()
     {
         return $this->count;
+    }
+
+    /**
+     * Seeks to a position
+     *
+     * @param int $position
+     * @throws \WidRestApiDocumentator\Exception\OutOfBoundsException
+     * @return void
+     */
+    public function seek($position)
+    {
+        $this->position = (int)$position;
+        if (!$this->valid()) {
+            $message = 'Invalid seek position %s';
+            $message = sprintf($message, $position);
+            throw new OutOfBoundsException($message);
+        }
     }
 
     public function append(ResourceInterface $resource)
