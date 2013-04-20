@@ -24,6 +24,22 @@ return array(
                                 'action' => 'show',
                             ),
                         ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'api' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/:endpoint',
+                                    'constraints' => array(
+                                        'endpoint' => '[\d]+',
+                                    ),
+                                    'defaults' => array(
+                                        'controller' => 'WidRestApiDocumentator\Controller\Api',
+                                        'action' => 'do',
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
