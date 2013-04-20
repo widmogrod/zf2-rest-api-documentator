@@ -16,23 +16,25 @@
     /*background-color: #fefaed;*/
     /*margin-bottom: 20px;*/
 }
-/*.api-method {*/
-    /*cursor: pointer;*/
-    /*width: 70px;*/
-    /*margin-right: 8px;*/
-    /*padding:  8px 12px;*/
-    /*display: inline-block;*/
-    /*font-size: 12px;*/
-    /*font-weight: bold;*/
-    /*background-color: #fff;*/
-    /*border: 1px solid #ddd;*/
-    /*-webkit-border-radius: 4px;*/
-    /*-moz-border-radius: 4px;*/
-    /*border-radius: 4px;*/
-/*}*/
+.api-method {
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #ddd;
+}
 .api-url {
     font-size: 14px;
     font-family: monospace;
+}
+.api-request-action {
+    text-align: center;
+    display: block;
+    color: #0088cc;
+    text-decoration: none;
+    cursor: pointer;
 }
 /*.api-description {*/
     /*position: absolute;*/

@@ -24,15 +24,12 @@ $esc = $this->plugin('EscapeHtml');
 <div class="api-entrypoint">
     <div class="row">
         <div class="span1">
-            <button class="btn btn-mini api-request-action"
-                    type="button"
-                    data-api-url="<?= $this->url('rest-api-docs/show/api', array('id' => $this->id, 'endpoint' => $number)) ?>">
-
-                <span class="api-method api-method-<?= strtolower($esc($resource->getMethod())) ?>" >
-                    <?= $esc($resource->getMethod())?>
-                </span>
-                <i class="icon-play"></i>
-            </button>
+            <span class="api-method api-method-<?= strtolower($esc($resource->getMethod())) ?>" ><?= $esc($resource->getMethod())?></span>
+            <span class="api-request-action"
+                  title="Run endpoint"
+                  data-api-url="<?= $this->url('rest-api-docs/show/api', array('id' => $this->id, 'endpoint' => $number)) ?>">
+                <small>Run &raquo</small>
+            </span>
         </div>
         <div class="span11 api-info">
             <span class="api-url"><?= $esc($resource->getUrl());?></span>
