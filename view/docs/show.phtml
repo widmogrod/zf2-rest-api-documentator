@@ -7,41 +7,66 @@ $resourceSet = $data->getResourceSet();
 /** @var $param \WidRestApiDocumentator\ParamInterface */
 $esc = $this->plugin('EscapeHtml');
 ?>
-<h1><?= $config->getName() ?> <span class="label label-info"><?= $config->getVersion()?></span></h1>
-
+<h1><?= $esc($config->getName()) ?> <span class="label label-info"><?= $esc($config->getVersion())?></span></h1>
 <?php if ($this->showBackLink): ?>
-<p><a href="<?= $this->url('rest-api-docs')?>"><i class="icon-chevron-left"></i> Go back to list</a></p>
+<p><a href="<?= $this->url('rest-api-docs') ?>"><i class="icon-chevron-left"></i> Go back to list</a></p>
 <?php endif; ?>
 
-<?php foreach($resourceSet as $number => $resource): ?>
-<div class="entrypoint">
-    <span class="api-method api-method-<?= strtolower($esc($resource->getMethod()))?>"><?= $esc($resource->getMethod())?></span>
-    <span class="api-url">
-        <span data-api-url="<?= $this->url('rest-api-docs/show/api', array('id' => $this->id,'endpoint'=>$number)) ?>" class="test-request"><i class="icon-play"></i></span>
-        <?php
-            // TODO: This, should be move to helper.
-            $urlParams = $resource->getUrlParams();
-            if (count($urlParams)) {
-                $urlParams->rewind();
-                echo preg_replace_callback('/(?<value><[^>]+>)/', function($matches) use($urlParams){
-                    $param = $urlParams->current();
-                    $urlParams->next();
-                    return sprintf('<input name="%s" placeholder="%s" class="param-placeholder"/>', $param->getName(), $matches['value']);
-                }, $resource->getUrl());
-            } else {
-                echo $esc($resource->getUrl());
-            }
-        ?>
-    </span>
-    <p class="api-description muted"><?= $esc($resource->getDescription()); ?></p>
-    <div class="toggable">
-        <div class="toggable-response">
-            <h4>Response body</h4>
-            <textarea class="response"></textarea>
-        </div>
+<?php foreach ($resourceSet as $number => $resource): ?>
+<?php
+    $description = $resource->getDescription();
+    $hasDescription = !empty($description);
 
-        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getUrlParams(), 'header' => 'Url params')); ?>
-        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $resource->getQueryParams(), 'header' => 'Query params')); ?>
+    $urlParams = $resource->getUrlParams();
+    $queryParams = $resource->getQueryParams();
+    $hasParams = count($urlParams) || count($queryParams);
+?>
+<div class="api-entrypoint">
+    <div class="row">
+        <div class="span1">
+            <button class="btn btn-mini api-request-action"
+                    type="button"
+                    data-api-url="<?= $this->url('rest-api-docs/show/api', array('id' => $this->id, 'endpoint' => $number)) ?>">
+
+                <span class="api-method api-method-<?= strtolower($esc($resource->getMethod())) ?>" >
+                    <?= $esc($resource->getMethod())?>
+                </span>
+                <i class="icon-play"></i>
+            </button>
+        </div>
+        <div class="span11 api-info">
+            <span class="api-url"><?= $esc($resource->getUrl());?></span>
+            <?php if ($hasDescription): ?>
+                <p class="api-description muted"><small><?= $esc($resource->getDescription()); ?></small></p>
+            <?php endif ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs">
+                    <?php if ($hasParams) :?>
+                    <li><a href="#params-<?=$number?>" data-toggle="tab">Options</a></li>
+                    <?php endif ?>
+
+                    <li class="<?= $hasParams ? '': 'active'?>"><a href="#response-<?=$number?>" data-toggle="tab">Response body</a></li>
+                </ul>
+                <div class="tab-content">
+                    <?php if ($hasParams) :?>
+                    <div class="tab-pane" id="params-<?=$number?>">
+                        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $urlParams,   'namespace' => 'urlParams', 'header' => 'Url params')); ?>
+                        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $queryParams, 'namespace' => 'queryParams', 'header' => 'Query params')); ?>
+                    </div>
+                    <?php endif ?>
+
+                    <div class="tab-pane" id="response-<?=$number?>">
+                        <div class="toggable-response">
+                            <pre class="api-response prettyprint">Response wasn't received. Run endpoint request to see result.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php endforeach; ?>

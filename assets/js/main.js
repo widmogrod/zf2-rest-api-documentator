@@ -1,11 +1,18 @@
-(function($){
-    $('.api-method').on('click', function(){
-        $(this).siblings('.toggable').toggleClass('show');
-    });
-    $('.test-request').on('click', function(){
-        var parent = $(this).parents('.entrypoint');
-        var res = parent.find('.response');
+;(function($){
+    // Select first tab
+    $('.nav-tabs li:nth-child(1) a').tab('show');
 
+    // Expand input
+    $('.api-param-placeholder').on('keypress', function(){
+        var $this = $(this);
+        var value = ($this.val()) ? $this.val() : $this.attr('placeholder');
+        $this.css('width', ((value.length + 1) * 8) + 'px');
+    }).trigger('keydown');
+
+    // Perform request
+    $('.api-request-action').on('click', function(){
+        var parent = $(this).parents('.api-entrypoint');
+        var response = parent.find('.api-response');
         var data = parent.find(':input').serializeArray();
 
         $.ajax({
@@ -14,16 +21,12 @@
             'data': data,
             'dataType': 'html',
             'success': function(data) {
-                parent.find('.toggable').addClass('show');
-                parent.find('.toggable-response').addClass('show');
-                res.val(data);
+                parent.find('a[href^=#response-]').tab('show');
+                response.html(data);
             },
             'error' : function(data) {
-                parent.find('.toggable').addClass('show');
-                parent.find('.toggable-response').addClass('show');
-                res.val(data);
+                response.html('Ups... error occur during request.');
             }
         });
-
     });
 })(jQuery);

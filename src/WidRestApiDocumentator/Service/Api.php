@@ -27,22 +27,41 @@ class Api
         $config = $api->getConfig();
         $uri = $config->getBaseUrl() . $resource->getUrl();
 
+        $urlValues = (array) $params->get('urlParams');
+        $queryValues = (array) $params->get('queryParams');
+
         // TODO: This, should be move to helper.
         $urlParams = $resource->getUrlParams();
         if (count($urlParams)) {
             $urlParams->rewind();
-            $uri = preg_replace_callback('/(?<value><[^>]+>)/', function($matches) use($urlParams, $params){
+            $uri = preg_replace_callback('/(?<value><[^>]+>)/', function() use($urlParams, $urlValues){
                 $param = $urlParams->current();
+                $key = $param->getName();
                 $urlParams->next();
-                return $params->get($param->getName());
+                return array_key_exists($key, $urlValues) ? $urlValues[$key] : null;
             }, $uri);
+        }
+
+        $queryParams = $resource->getQueryParams();
+        if (count($queryParams)) {
+            $query = array();
+            foreach ($queryParams as $param) {
+                $key = $param->getName();
+                if (array_key_exists($key, $queryValues)) {
+                    $query[$key] = $queryValues[$key];
+                }
+            }
+            if (count($query)) {
+                $uri .= '?';
+                $uri .= http_build_query($query);
+            }
         }
 
         /** @var $client Client */
         $client = $this->getHttpClient();
         $client->setMethod($resource->getMethod());
         $client->setUri($uri);
-//        $client->set
+
         $response = $client->send();
         return $response->getBody();
     }

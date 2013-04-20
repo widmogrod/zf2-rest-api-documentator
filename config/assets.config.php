@@ -14,7 +14,7 @@ return array(
                 'collections' => array(
                     'zf2_rest_api_css' => array(
                         'assets' => array(
-                            'css/bootstrap.css',
+                            'css/bootstrap.min.css',
                             'css/main.css',
                         ),
                         'filters' => array(
@@ -26,6 +26,7 @@ return array(
                     'zf2_rest_api_js' => array(
                         'assets' => array(
                             'js/jquery-1.9.1.min.js',
+                            'js/bootstrap.min.js',
                             'js/main.js',
                         ),
                     ),

@@ -10,8 +10,9 @@ $esc = $this->plugin('EscapeHtml');
     <h5><?= $esc($this->header) ?></h5>
     <table class="table table-bordered">
         <tr>
-            <th class="span3">Name</th>
+            <th class="span2">Name</th>
             <th class="span1">Type</th>
+            <th class="span1">Value</th>
             <th class="span1">Required</th>
             <th>Description</th>
         </tr>
@@ -19,6 +20,7 @@ $esc = $this->plugin('EscapeHtml');
             <tr>
                 <td><?= $esc($param->getName()) ?></td>
                 <td><?= $esc($param->getType()) ?></td>
+                <td><?= sprintf('<input name="%s[%s]" class="api-param-value"/>', $this->namespace, $param->getName()); ?></td>
                 <td><?= $esc($param->isRequired() ? 'yes' : 'no') ?></td>
                 <td><?= $esc($param->getDescription()) ?></td>
             </tr>

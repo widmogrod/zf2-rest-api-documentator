@@ -1,76 +1,78 @@
-.api-list {
-    list-style: none;
-    margin: 0;
+/*.api-list {*/
+    /*list-style: none;*/
+    /*margin: 0;*/
+/*}*/
+/*.api-item {*/
+    /*margin: 10px 0;*/
+    /*padding: 10px;*/
+    /*background-color: #fff;*/
+    /*border: 1px solid #ddd;*/
+    /*-webkit-border-radius: 4px;*/
+    /*-moz-border-radius: 4px;*/
+    /*border-radius: 4px;*/
+/*}*/
+.api-info {
+    /*position: relative;*/
+    /*background-color: #fefaed;*/
+    /*margin-bottom: 20px;*/
 }
-.api-item {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-}
-.entrypoint {
-    position: relative;
-    margin: 15px 0;
-    padding: 15px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-}
-.api-method {
-    position: absolute;
-    cursor: pointer;
-    top: -1px;
-    left: -1px;
-    padding: 3px 7px;
-    font-size: 12px;
-    font-weight: bold;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    color: #9da0a4;
-    -webkit-border-radius: 4px 0 4px 0;
-    -moz-border-radius: 4px 0 4px 0;
-    border-radius: 4px 0 4px 0;
-
-}
+/*.api-method {*/
+    /*cursor: pointer;*/
+    /*width: 70px;*/
+    /*margin-right: 8px;*/
+    /*padding:  8px 12px;*/
+    /*display: inline-block;*/
+    /*font-size: 12px;*/
+    /*font-weight: bold;*/
+    /*background-color: #fff;*/
+    /*border: 1px solid #ddd;*/
+    /*-webkit-border-radius: 4px;*/
+    /*-moz-border-radius: 4px;*/
+    /*border-radius: 4px;*/
+/*}*/
 .api-url {
-    position: absolute;
-    top: -1px;
-    left: 65px;
-    padding: 3px 7px;
     font-size: 14px;
     font-family: monospace;
 }
-.api-description {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    padding: 3px 7px;
-    font-size: 12px;
+/*.api-description {*/
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*right: 0px;*/
+    /*padding: 3px 7px;*/
+    /*font-size: 12px;*/
+/*}*/
+/*.api-params {*/
+    /*padding-top: 10px;*/
+/*}*/
+.api-param-value {
+    width: 30px;
 }
-.api-params {
-    padding-top: 10px;
+.api-entrypoint {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #9cc9f1;
 }
-.param-placeholder {
+.api-entrypoint > .row:first-child {
+    margin-bottom: 20px;
+}
+.api-param-placeholder {
     width: 65px;
     border: 0;
     background: transparent;
     outline: 0;
     border-bottom: 1px dashed #eee;
+    color: #ce9212;
+    font-size: 14px;
+    font-family: monospace;
 }
 
-.toggable-response,
-.toggable {
-    display: none;
-}
-.show {
-    display: block;
-}
-.response {
-    width: 98%;
-    height: 150px;
-}
+/*.toggable-response,*/
+/*.toggable {*/
+    /*display: none;*/
+/*}*/
+/*.show {*/
+    /*display: block;*/
+/*}*/
+/*.response {*/
+    /*width: 98%;*/
+    /*height: 150px;*/
+/*}*/
