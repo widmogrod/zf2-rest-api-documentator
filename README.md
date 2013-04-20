@@ -157,6 +157,7 @@ $config = array(
         ),
         'config_static_paths' => array(
             'tests/config/autoload/assets.php',
+            'config/api.config.php',
         ),
         'module_paths' => array(
             'WidRestApiDocumentator' => __DIR__
