@@ -13,11 +13,11 @@ $esc = $this->plugin('EscapeHtml');
 <p><a href="<?= $this->url('rest-api-docs')?>"><i class="icon-chevron-left"></i> Go back to list</a></p>
 <?php endif; ?>
 
-<?php foreach($resourceSet as $resource): ?>
+<?php foreach($resourceSet as $number => $resource): ?>
 <div class="entrypoint">
     <span class="api-method api-method-<?= strtolower($esc($resource->getMethod()))?>"><?= $esc($resource->getMethod())?></span>
     <span class="api-url">
-        <span data-href="<?= $config->getBaseUrl() . $resource->getUrl() ?>" class="test-request"><i class="icon-play"></i></span>
+        <span data-api-url="<?= $this->url('rest-api-docs/show/api', array('id' => $this->id,'endpoint'=>$number)) ?>" class="test-request"><i class="icon-play"></i></span>
         <?php
             // TODO: This, should be move to helper.
             $urlParams = $resource->getUrlParams();
