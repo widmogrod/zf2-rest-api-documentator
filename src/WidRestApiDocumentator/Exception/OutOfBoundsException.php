@@ -1,4 +1,4 @@
 <?php
 namespace WidRestApiDocumentator\Exception;
 
-class RuntimeException extends Exception {}
+class OutOfBoundsException extends RuntimeException {}
