@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "widmogrod/zf2-assetic-module": "dev-master"
+        "widmogrod/zf2-assetic-module": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",

@@ -32,6 +32,10 @@ return array(
                                 'description' => 'Endpoint identification'
                             ),
                         ),
+                        'requestBody' => array(
+                            'type' => 'json',
+                            'type' => 'params',
+                        ),
                     ),
                 ),
             ),
