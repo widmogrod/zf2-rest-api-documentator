@@ -122,7 +122,7 @@ class Standard implements StrategyInterface
             return;
         }
 
-        if (isset($general['params']) && !count($general['params'])) {
+        if (!isset($general['params']) || !count($general['params'])) {
             return;
         }
 
