@@ -1,6 +1,10 @@
 <?php
 namespace WidRestApiDocumentator\Resource;
 
+use WidRestApiDocumentator\Body\NullBody;
+use WidRestApiDocumentator\BodyInterface;
+use WidRestApiDocumentator\HeaderSet\HeaderSet;
+use WidRestApiDocumentator\HeaderSetInterface;
 use WidRestApiDocumentator\ParamSet\ParamSet;
 use WidRestApiDocumentator\ParamSetInterface;
 use WidRestApiDocumentator\ResourceInterface;
@@ -12,6 +16,8 @@ class StandardResource implements ResourceInterface
     protected $urlParams;
     protected $description;
     protected $uri;
+    protected $headers;
+    protected $body;
 
     public function setDescription($description)
     {
@@ -67,5 +73,31 @@ class StandardResource implements ResourceInterface
     public function getUrl()
     {
         return $this->uri;
+    }
+
+    public function setHeaders(HeaderSetInterface $headers)
+    {
+        $this->headers = $headers;
+    }
+
+    public function getHeaders()
+    {
+        if (null === $this->headers) {
+            $this->headers = new HeaderSet();
+        }
+        return $this->headers;
+    }
+
+    public function setBody(BodyInterface $body)
+    {
+        $this->body;
+    }
+
+    public function getBody()
+    {
+        if (null === $this->body) {
+            $this->body = new NullBody();
+        }
+        return $this->body;
     }
 }
