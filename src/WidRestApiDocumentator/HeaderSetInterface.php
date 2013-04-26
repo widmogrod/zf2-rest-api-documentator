@@ -1,7 +1,8 @@
 <?php
 namespace WidRestApiDocumentator;
 
-interface HeadersSetInterface {
+interface HeaderSetInterface extends \Traversable
+{
     public function set(HeaderInterface $header);
 
     /**
