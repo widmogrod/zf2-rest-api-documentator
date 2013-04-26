@@ -46,8 +46,9 @@
 /*.api-params {*/
     /*padding-top: 10px;*/
 /*}*/
+.api-header-value,
 .api-param-value {
-    width: 30px;
+    width: 95%;
 }
 .api-entrypoint {
     margin-bottom: 20px;
