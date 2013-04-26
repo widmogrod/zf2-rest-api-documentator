@@ -25,16 +25,31 @@ return array(
                 'resources' => array(
                     'POST: /request/<id>/<endpoint>' => array(
                         'description' => 'Perform request for given API <id> - <endpoint>',
+                        'headers' => array(
+                            'X-Test-Header' => array(
+                                'type' => 'string',
+                                'required' => true,
+                                'description' => 'Header is test header. Nothing special.'
+                            ),
+                        ),
+                        'body' => array(
+                            'params' => array(
+                                'communicationOne' => array(
+                                    'type' => 'string',
+                                    'description' => "User value indicating that he want to receive communication type one. Valid value ENUM ('YES', 'NO')",
+                                ),
+                                'communicationTwo' => array(
+                                    'type' => 'string',
+                                    'description' => "User value indicating that he want to receive communication type one. Valid value ENUM ('YES', 'NO')",
+                                ),
+                            ),
+                        ),
                         'params' => array(
                             'endpoint' => array(
                                 'type' => 'string',
                                 'required' => true,
                                 'description' => 'Endpoint identification'
                             ),
-                        ),
-                        'requestBody' => array(
-                            'type' => 'json',
-                            'type' => 'params',
                         ),
                     ),
                 ),
