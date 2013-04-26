@@ -62,6 +62,15 @@ class Api
         $client->setMethod($resource->getMethod());
         $client->setUri($uri);
 
+        // Setup headers
+        $headers = $client->getRequest()->getHeaders();
+        foreach($resource->getHeaders() as $header) {
+            $headers->addHeader($header);
+        }
+
+        // Setup body
+        $client->setRawBody($resource->getBody()->toString());
+
         $response = $client->send();
         return $response->getBody();
     }
