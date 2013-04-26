@@ -90,7 +90,7 @@ class StandardResource implements ResourceInterface
 
     public function setBody(BodyInterface $body)
     {
-        $this->body;
+        $this->body = $body;
     }
 
     public function getBody()

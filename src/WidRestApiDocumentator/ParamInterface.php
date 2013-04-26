@@ -4,6 +4,7 @@ namespace WidRestApiDocumentator;
 interface ParamInterface
 {
     const TYPE_MIXED = 'mixed';
+    const TYPE_ARRAY = 'array';
     const TYPE_INTEGER = 'integer';
     const TYPE_STRING = 'string';
 

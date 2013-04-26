@@ -1,6 +1,7 @@
 <?php
 namespace WidRestApiDocumentator\Strategy;
 
+use WidRestApiDocumentator\Body\GenericBody;
 use WidRestApiDocumentator\ConfigInterface;
 use WidRestApiDocumentator\Exception;
 use WidRestApiDocumentator\Header\GenericHeader;
@@ -119,6 +120,9 @@ class Standard implements StrategyInterface
             if (array_key_exists('headers', $options)){
                 $this->parseHeaders((array) $options['headers'], $resource);
             }
+            if (array_key_exists('body', $options)){
+                $this->parseBody((array) $options['body'], $resource);
+            }
         }
     }
 
@@ -132,6 +136,25 @@ class Standard implements StrategyInterface
             $headerSet->set($header);
         }
         $resource->setHeaders($headerSet);
+    }
+
+    public function parseBody(array $data, ResourceInterface $resource)
+    {
+        if (!array_key_exists('params', $data) || !is_array($data['params'])) {
+            return;
+        }
+
+        $body = new GenericBody();
+        $paramSet = new ParamSet();
+        $params = (array) $data['params'];
+        foreach ($params as $name => $options) {
+            $param = new GenericParam();
+            $param->setName($name);
+            $param->setOptions($options);
+            $paramSet->set($param);
+        }
+        $body->setParams($paramSet);
+        $resource->setBody($body);
     }
 
     protected function parseGeneral($general)

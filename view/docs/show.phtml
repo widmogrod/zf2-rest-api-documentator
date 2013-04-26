@@ -21,10 +21,13 @@ $esc = $this->plugin('EscapeHtml');
     $queryParams = $resource->getQueryParams();
     $hasParams = count($urlParams) || count($queryParams);
 
+    $body = $resource->getBody();
+    $hasBody = count($body->getParams());
+
     $headers = $resource->getHeaders();
     $hasHeaders = count($headers);
 
-    $hasOptions = $hasParams || $hasHeaders;
+    $hasOptions = $hasParams || $hasHeaders || $hasBody;
 ?>
 <div class="api-entrypoint">
     <div class="row">
@@ -64,6 +67,10 @@ $esc = $this->plugin('EscapeHtml');
                         <?php if ($hasParams) :?>
                         <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $urlParams,   'namespace' => 'urlParams', 'header' => 'Url params')); ?>
                         <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $queryParams, 'namespace' => 'queryParams', 'header' => 'Query params')); ?>
+                        <?php endif ?>
+
+                        <?php if ($hasBody) :?>
+                            <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $body->getParams(), 'namespace' => 'body', 'header' => 'Body')); ?>
                         <?php endif ?>
                     </div>
                     <?php endif ?>

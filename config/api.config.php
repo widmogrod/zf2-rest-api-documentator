@@ -34,13 +34,21 @@ return array(
                         ),
                         'body' => array(
                             'params' => array(
-                                'communicationOne' => array(
-                                    'type' => 'string',
-                                    'description' => "User value indicating that he want to receive communication type one. Valid value ENUM ('YES', 'NO')",
+                                'urlParams' => array(
+                                    'type' => 'array',
+                                    'description' => 'Contains set of $key => $value pair, where $key is a url segment id and $value is it\'s value',
                                 ),
-                                'communicationTwo' => array(
-                                    'type' => 'string',
-                                    'description' => "User value indicating that he want to receive communication type one. Valid value ENUM ('YES', 'NO')",
+                                'queryParams' => array(
+                                    'type' => 'array',
+                                    'description' => 'Contains set of $key => $value pair, where $key is a url query param id and $value is it\'s value',
+                                ),
+                                'headers' => array(
+                                    'type' => 'array',
+                                    'description' => 'Contains set of $key => $value pair, where $key is a header name and $value is it\'s value',
+                                ),
+                                'body' => array(
+                                    'type' => 'array',
+                                    'description' => 'Contains set of $key => $value pair, where $key is a body param name and $value is it\'s value',
                                 ),
                             ),
                         ),

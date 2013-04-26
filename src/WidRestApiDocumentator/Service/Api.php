@@ -1,6 +1,8 @@
 <?php
 namespace WidRestApiDocumentator\Service;
 
+use WidRestApiDocumentator\HeaderInterface;
+use WidRestApiDocumentator\ParamInterface;
 use WidRestApiDocumentator\Strategy\Standard;
 use Zend\Http\Client;
 use Zend\Stdlib\ParametersInterface;
@@ -29,6 +31,8 @@ class Api
 
         $urlValues = (array) $params->get('urlParams');
         $queryValues = (array) $params->get('queryParams');
+        $headerValues = (array) $params->get('headers');
+        $bodyValue = $params->get('body');
 
         // TODO: This, should be move to helper.
         $urlParams = $resource->getUrlParams();
@@ -45,7 +49,7 @@ class Api
         $queryParams = $resource->getQueryParams();
         if (count($queryParams)) {
             $query = array();
-            foreach ($queryParams as $param) {
+            foreach ($queryParams as $param /** @var ParamInterface $param */) {
                 $key = $param->getName();
                 if (array_key_exists($key, $queryValues)) {
                     $query[$key] = $queryValues[$key];
@@ -64,12 +68,19 @@ class Api
 
         // Setup headers
         $headers = $client->getRequest()->getHeaders();
-        foreach($resource->getHeaders() as $header) {
-            $headers->addHeader($header);
+        foreach($resource->getHeaders() as $header /** @var HeaderInterface $header */) {
+            $key = $header->getName();
+            // TODO: add validation if required (?)
+            if (array_key_exists($key, $headerValues)) {
+                $value = $headerValues[$key];
+                $headers->addHeaderLine($header->getName(), $value);
+            }
         }
 
         // Setup body
-        $client->setRawBody($resource->getBody()->toString());
+        $body = $resource->getBody();
+        $body->parse($bodyValue);
+        $client->setRawBody($body->toString());
 
         $response = $client->send();
         return $response->getBody();

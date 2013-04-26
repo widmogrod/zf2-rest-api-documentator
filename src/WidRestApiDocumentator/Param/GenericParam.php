@@ -12,6 +12,7 @@ class GenericParam implements ParamInterface
 
     protected $availableTypes = array(
         self::TYPE_MIXED => true,
+        self::TYPE_ARRAY => true,
         self::TYPE_INTEGER => true,
         self::TYPE_STRING => true,
     );
