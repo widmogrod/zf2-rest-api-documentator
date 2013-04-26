@@ -12,17 +12,15 @@ $esc = $this->plugin('EscapeHtml');
         <tr>
             <th class="span2">Name</th>
             <th class="span1">Type</th>
-            <th class="span1">Value</th>
-            <th class="span1">Required</th>
+            <th class="span2">Value</th>
             <th>Description</th>
         </tr>
         <?php foreach($params as $param): ?>
-            <tr>
+            <tr class="<?= $param->isRequired() ? 'warning' : '' ?>">
                 <td><?= $esc($param->getName()) ?></td>
                 <td><?= $esc($param->getType()) ?></td>
-                <td><?= sprintf('<input name="%s[%s]" class="api-param-value"/>', $this->namespace, $param->getName()); ?></td>
-                <td><?= $esc($param->isRequired() ? 'yes' : 'no') ?></td>
-                <td><?= $esc($param->getDescription()) ?></td>
+                <td><?= sprintf('<input name="%s[%s]" class="api-param-value"/>', $this->namespace, $esc($param->getName())); ?></td>
+                <td><span class="label label-important"><?= $param->isRequired() ? 'required' : '' ?></span> <?= $esc($param->getDescription()) ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
