@@ -1,4 +1,4 @@
-# Module generating REST API documentation v1.2.1 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
+# Module generating REST API documentation v1.3.0 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
 ## Introduction
 
 This module allow to create quick documentation of your REST API.
@@ -35,7 +35,7 @@ Main features that I want to implement:
 ## Usage
 
 Bellow is php configuration file that show haw to implement simple REST API documentation in your module.
-This is a minimal configuration required to achive result shown futher dawn.
+This is a minimal configuration required to achieve result shown further dawn.
 
 ```php
 <?php
@@ -117,7 +117,7 @@ return array(
 
 Currently module have one strategy named "standard".
 Strategy is way, in which documentation configuration will be interpreted.
-It's very usfull way to create your own interpreter.
+It's very useful way to create your own interpreter.
 To do that you need to do two things
 
   1. Write your strategy implementing this interface `WidRestApiDocumentator\StrategyInterface`
