@@ -1,8 +1,12 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: gabrielhabryn
- * Date: 26.04.2013
- * Time: 14:22
- * To change this template use File | Settings | File Templates.
- */
+namespace WidRestApiDocumentator\Body;
+
+use WidRestApiDocumentator\BodyInterface;
+
+class NullBody implements BodyInterface
+{
+    public function toString()
+    {
+        return null;
+    }
+}
