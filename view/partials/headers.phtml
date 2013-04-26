@@ -1,0 +1,25 @@
+<?php
+$headers = $this->headers;
+if (!count($headers)) {
+    return;
+}
+/** @var $header \WidRestApiDocumentator\HeaderInterface */
+$esc = $this->plugin('EscapeHtml');
+?>
+<div class="api-headers">
+    <h5>Headers</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th class="span3">Name</th>
+            <th class="span2">Value</th>
+            <th>Description</th>
+        </tr>
+        <?php foreach($headers as $header): ?>
+            <tr class="<?= $header->isRequired() ? 'warning' : '' ?>">
+                <td><?= $esc($header->getName()) ?></td>
+                <td><?= sprintf('<input name="%s[%s]" class="api-header-value"/>', $this->namespace, $esc($header->getName()), $esc($header->getValue())); ?></td>
+                <td><span class="label label-important"><?= $header->isRequired() ? 'required' : '' ?></span> <?= $esc($header->getDescription()) ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
