@@ -3,6 +3,8 @@ namespace WidRestApiDocumentator\Strategy;
 
 use WidRestApiDocumentator\ConfigInterface;
 use WidRestApiDocumentator\Exception;
+use WidRestApiDocumentator\Header\GenericHeader;
+use WidRestApiDocumentator\HeaderSet\HeaderSet;
 use WidRestApiDocumentator\Param\GenericParam;
 use WidRestApiDocumentator\ParamInterface;
 use WidRestApiDocumentator\ParamSet\ParamSet;
@@ -10,6 +12,7 @@ use WidRestApiDocumentator\Resource;
 use WidRestApiDocumentator\ResourceInterface;
 use WidRestApiDocumentator\ResourceSet;
 use WidRestApiDocumentator\StrategyInterface;
+use Zend\Http\Headers;
 
 class Standard implements StrategyInterface
 {
@@ -113,24 +116,49 @@ class Standard implements StrategyInterface
             if (array_key_exists('description', $options)) {
                 $resource->setDescription($options['description']);
             }
+            if (array_key_exists('headers', $options)){
+                $this->parseHeaders((array) $options['headers'], $resource);
+            }
         }
+    }
+
+    public function parseHeaders(array $headers, ResourceInterface $resource)
+    {
+        $headerSet = new HeaderSet();
+        foreach ($headers as $name => $options) {
+            $header = new GenericHeader();
+            $header->setName($name);
+            $header->setOptions($options);
+            $headerSet->set($header);
+        }
+        $resource->setHeaders($headerSet);
     }
 
     protected function parseGeneral($general)
     {
+        $allowed = array(
+            'params' => true,
+            'headers' => true,
+            'body' => true,
+        );
+
         if (!is_array($general)) {
             return;
         }
 
-        if (!isset($general['params']) || !count($general['params'])) {
-            return;
-        }
+        $general = array_intersect_key($general, $allowed);
 
-        foreach ((array)$general['params'] as $name => $options) {
-            $param = new GenericParam();
-            $param->setName($name);
-            $param->setOptions($options);
-            $this->generalParams->set($param);
+        foreach ($general as $namespace => $options) {
+            switch($namespace) {
+                case 'params':
+                    foreach ((array) $options as $name => $options) {
+                        $param = new GenericParam();
+                        $param->setName($name);
+                        $param->setOptions($options);
+                        $this->generalParams->set($param);
+                    }
+                    break;
+            }
         }
     }
 
