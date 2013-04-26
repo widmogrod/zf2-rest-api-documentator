@@ -1,10 +1,10 @@
 <?php
-namespace WidRestApiDocumentator\HeadersSet;
+namespace WidRestApiDocumentator\HeaderSet;
 
 use WidRestApiDocumentator\HeaderInterface;
-use WidRestApiDocumentator\HeadersSetInterface;
+use WidRestApiDocumentator\HeaderSetInterface;
 
-class HeadersSet extends \ArrayIterator implements HeadersSetInterface
+class HeaderSet extends \ArrayIterator implements HeaderSetInterface
 {
     public function __construct()
     {
@@ -13,7 +13,7 @@ class HeadersSet extends \ArrayIterator implements HeadersSetInterface
 
     public function set(HeaderInterface $header)
     {
-        $this->offsetSet($header->getFieldName(), $header);
+        $this->offsetSet($header->getName(), $header);
     }
 
     public function get($header)
