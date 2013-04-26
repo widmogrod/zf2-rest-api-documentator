@@ -1,8 +1,18 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: gabrielhabryn
- * Date: 26.04.2013
- * Time: 14:18
- * To change this template use File | Settings | File Templates.
- */
+namespace WidRestApiDocumentator;
+
+interface HeaderInterface {
+    public function setName($value);
+    public function getName();
+
+    public function setDescription($value);
+    public function getDescription();
+
+    public function setRequired($value);
+    public function isRequired();
+
+    public function setValue($value);
+    public function getValue();
+
+    public function setOptions(array $options);
+}
