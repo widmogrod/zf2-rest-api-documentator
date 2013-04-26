@@ -20,6 +20,11 @@ $esc = $this->plugin('EscapeHtml');
     $urlParams = $resource->getUrlParams();
     $queryParams = $resource->getQueryParams();
     $hasParams = count($urlParams) || count($queryParams);
+
+    $headers = $resource->getHeaders();
+    $hasHeaders = count($headers);
+
+    $hasOptions = $hasParams || $hasHeaders;
 ?>
 <div class="api-entrypoint">
     <div class="row">
@@ -49,10 +54,17 @@ $esc = $this->plugin('EscapeHtml');
                     <li class="<?= $hasParams ? '': 'active'?>"><a href="#response-<?=$number?>" data-toggle="tab">Response body</a></li>
                 </ul>
                 <div class="tab-content">
-                    <?php if ($hasParams) :?>
+
+                    <?php if ($hasOptions) :?>
                     <div class="tab-pane" id="params-<?=$number?>">
+                        <?php if ($hasHeaders) :?>
+                            <?= $this->partial('wid-rest-api-documentator/partials/headers', array('headers' => $headers, 'namespace' => 'headers')); ?>
+                        <?php endif ?>
+
+                        <?php if ($hasParams) :?>
                         <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $urlParams,   'namespace' => 'urlParams', 'header' => 'Url params')); ?>
                         <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $queryParams, 'namespace' => 'queryParams', 'header' => 'Query params')); ?>
+                        <?php endif ?>
                     </div>
                     <?php endif ?>
 
