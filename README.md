@@ -73,9 +73,27 @@ return array(
                 // REST API Endpoings, here you describing your API
                 'resources' => array(
                     'GET: /keywords' => 'Fetch list of keywords',
-                    'GET: /keywords/{<id>[\d]+}' => 'Fetch specific keyword <id>',
-                    'GET: /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}',
-                    'GET: /keywords/{<id>[\d]+}/domains_positions_in_search_engine',
+                    'GET: /keywords/<id>' => 'Fetch specific keyword',
+                    'GET: /keywords/<id>/search_engines?limit=&order=',
+                    'GET: /keywords/<id>/domains_positions_in_search_engine',
+                    'GET: /users/me' => array(
+                        'description' => 'Demonstration endpoint that use headers & body params',
+                        'headers' => array(
+                            'X-Login' => array(
+                                'type' => 'string',
+                                'required' => true,
+                                'description' => 'Header is test header. Nothing special.'
+                            ),
+                        ),
+                        'body' => array(
+                            'params' => array(
+                                'token' => array(
+                                    'type' => 'string',
+                                    'description' => 'Authorization token',
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
