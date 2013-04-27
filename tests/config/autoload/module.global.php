@@ -32,24 +32,40 @@ return array(
                 ),
                 'resources' => array(
                     'GET: /keywords' => 'Fetch list of keywords',
+                    'PUT: /keywords' => array(
+                        'body' => array(
+                            'params' => array(
+                                'name' => array(
+                                    'type' => 'string',
+                                    'required' => true,
+                                    'description' => 'Keyword name',
+                                ),
+                            ),
+                        ),
+                    ),
                     'GET: /keywords/<id>' => 'Fetch specific keyword',
+                    'POST: /keywords/<id>' => array(
+                        'description' => 'Update specific keyword information',
+                        'body' => array(
+                            'params' => array(
+                                'name' => array(
+                                    'type' => 'string',
+                                    'required' => true,
+                                    'description' => 'Keyword name',
+                                ),
+                            ),
+                        ),
+                    ),
+                    'DELETE: /keywords/<id>' => 'Delete specific keyword',
                     'GET: /keywords/<id>/search_engines?limit=&order=',
                     'GET: /keywords/<id>/domains_positions_in_search_engine',
-                    'GET: /users/me' => array(
+                    'PUT: /users/me' => array(
                         'description' => 'Demonstration endpoint that use headers & body params',
                         'headers' => array(
                             'X-Login' => array(
                                 'type' => 'string',
                                 'required' => true,
-                                'description' => 'Header is test header. Nothing special.'
-                            ),
-                        ),
-                        'body' => array(
-                            'params' => array(
-                                'token' => array(
-                                    'type' => 'string',
-                                    'description' => 'Authorization token',
-                                ),
+                                'description' => 'Header is test header. Can contains i.e. OAuth token.'
                             ),
                         ),
                     ),
