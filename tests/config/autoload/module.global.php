@@ -35,6 +35,24 @@ return array(
                     'GET: /keywords/<id>' => 'Fetch specific keyword',
                     'GET: /keywords/<id>/search_engines?limit=&order=',
                     'GET: /keywords/<id>/domains_positions_in_search_engine',
+                    'GET: /users/me' => array(
+                        'description' => 'Demonstration endpoint that use headers & body params',
+                        'headers' => array(
+                            'X-Login' => array(
+                                'type' => 'string',
+                                'required' => true,
+                                'description' => 'Header is test header. Nothing special.'
+                            ),
+                        ),
+                        'body' => array(
+                            'params' => array(
+                                'token' => array(
+                                    'type' => 'string',
+                                    'description' => 'Authorization token',
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

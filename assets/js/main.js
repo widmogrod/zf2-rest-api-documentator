@@ -85,7 +85,7 @@
                 response.html('Ups... error occurred during request.');
             },
             'complete': function() {
-                documentation.toggleClass('show');
+                documentation.addClass('show');
             }
         });
     });
