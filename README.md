@@ -13,6 +13,8 @@ Main features that I want to implement:
    - [√] Execute API call from documentation
    - [-] Performing authorization (OAuth, BaseAuth, ...)
 
+Read [TODO.md](https://github.com/widmogrod/zf2-rest-api-documentator/blob/master/TODO.md) for more information.
+
 ## Installation
 
   1. `cd my/project/directory`
