@@ -1,16 +1,17 @@
 ;(function(){
     var Formater  = {
-        "auto": function(val) {
-            var result = val;
+        "auto": function(value) {
+            var result = value = new String(value);
 
-            val.charAt(0) == '{' && (result = this.json(val));
-            val.charAt(0) == '[' && (result = this.json(val));
+            value.charAt(0) == '{' && (result = this.json(value));
+            value.charAt(0) == '[' && (result = this.json(value));
 
             return result;
         },
-        "json": function (val) {
-            var retval = '';
-            var str = val;
+        "json": function (value) {
+            var value = new String(value);
+            var result = '';
+            var str = value;
             var pos = 0;
             var strLen = str.length;
             var indentStr = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -21,52 +22,54 @@
                 char = str.substring(i,i+1);
 
                 if (char == '}' || char == ']') {
-                    retval = retval + newLine;
+                    result = result + newLine;
                     pos = pos - 1;
 
                     for (var j=0; j<pos; j++) {
-                        retval = retval + indentStr;
+                        result = result + indentStr;
                     }
                 }
 
-                retval = retval + char;
+                result = result + char;
 
                 if (char == '{' || char == '[' || char == ',') {
-                    retval = retval + newLine;
+                    result = result + newLine;
 
                     if (char == '{' || char == '[') {
                         pos = pos + 1;
                     }
 
                     for (var k=0; k<pos; k++) {
-                        retval = retval + indentStr;
+                        result = result + indentStr;
                     }
                 }
             }
 
-            return retval;
+            return result;
         }
     };
 
     this.Formater = Formater;
 }).call(this);
-;(function($){
 
+;(function($){
 
     // Select first tab
     $('.nav-tabs li:nth-child(1) a').tab('show');
 
     // Expand input
-    $('.api-param-placeholder').on('keypress', function(){
-        var $this = $(this);
-        var value = ($this.val()) ? $this.val() : $this.attr('placeholder');
-        $this.css('width', ((value.length + 1) * 8) + 'px');
-    }).trigger('keydown');
+    $('.api-method').on('click', function() {
+        var parent = $(this).parents('.api-entrypoint');
+        var documentation = parent.find('.api-entrypoint-documentation');
+
+        documentation.toggleClass('show');
+    });
 
     // Perform request
     $('.api-request-action').on('click', function(){
         var parent = $(this).parents('.api-entrypoint');
         var response = parent.find('.api-response');
+        var documentation = parent.find('.api-entrypoint-documentation');
         var data = parent.find(':input').serializeArray();
 
         $.ajax({
@@ -78,8 +81,11 @@
                 parent.find('a[href^=#response-]').tab('show');
                 response.html(Formater.auto(data));
             },
-            'error' : function(data) {
-                response.html('Ups... error occur during request.');
+            'error' : function() {
+                response.html('Ups... error occurred during request.');
+            },
+            'complete': function() {
+                documentation.toggleClass('show');
             }
         });
     });

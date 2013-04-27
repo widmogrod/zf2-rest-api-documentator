@@ -1,3 +1,4 @@
+.show {display: block !important;}
 .api-method {
     cursor: pointer;
     text-align: center;
@@ -29,6 +30,7 @@
 .api-entrypoint > .row:first-child {
     margin-bottom: 20px;
 }
+.api-entrypoint-documentation {display: none}
 .api-param-placeholder {
     width: 65px;
     border: 0;
