@@ -1,4 +1,4 @@
-# Module generating REST API documentation v1.4.0 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
+# Module generating REST API documentation v1.4.1 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
 ## Introduction
 
 This module allow to create quick documentation of your REST API.
@@ -75,10 +75,21 @@ return array(
                 // REST API Endpoings, here you describing your API
                 'resources' => array(
                     'GET: /keywords' => 'Fetch list of keywords',
+                    'PUT: /keywords' => array(
+                        'body' => array(
+                            'params' => array(
+                                'name' => array(
+                                    'type' => 'string',
+                                    'required' => true,
+                                    'description' => 'Keyword name',
+                                ),
+                            ),
+                        ),
+                    ),
                     'GET: /keywords/<id>' => 'Fetch specific keyword',
                     'GET: /keywords/<id>/search_engines?limit=&order=',
                     'GET: /keywords/<id>/domains_positions_in_search_engine',
-                    'GET: /users/me' => array(
+                    'PUT: /users/me' => array(
                         'description' => 'Demonstration endpoint that use headers & body params',
                         'headers' => array(
                             'X-Login' => array(
