@@ -8,6 +8,15 @@
     font-weight: bold;
     background-color: #ddd;
 }
+.api-method.api-method-put {
+    background-color: #aed7f1;
+}
+.api-method.api-method-post {
+    background-color: #b8f1aa;
+}
+.api-method.api-method-delete {
+    background-color: #f1babf;
+}
 .api-url {
     font-size: 14px;
     font-family: monospace;
