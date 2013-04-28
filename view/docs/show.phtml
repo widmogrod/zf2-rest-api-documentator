@@ -54,7 +54,7 @@ $esc = $this->plugin('EscapeHtml');
                     <li><a href="#params-<?=$number?>" data-toggle="tab">Options</a></li>
                     <?php endif ?>
 
-                    <li class="<?= $hasParams ? '': 'active'?>"><a href="#response-<?=$number?>" data-toggle="tab">Response body</a></li>
+                    <li class="<?= $hasParams ? '': 'active'?>"><a href="#response-<?=$number?>" data-toggle="tab">Response</a></li>
                 </ul>
                 <div class="tab-content">
 
@@ -76,17 +76,21 @@ $esc = $this->plugin('EscapeHtml');
                     <?php endif ?>
 
                     <div class="tab-pane active" id="response-<?=$number?>">
-                        <div class="toggable-response">
-                            <h4>Request URI</h4>
-                            <pre class="api-response api-response-requestUri">Response wasn't received. Run endpoint request to see result.</pre>
-                            <h4>Request headers</h4>
-                            <pre class="api-response api-response-requestHeaders">Response wasn't received. Run endpoint request to see result.</pre>
-                            <h4>Request body</h4>
-                            <pre class="api-response api-response-requestBody">Response wasn't received. Run endpoint request to see result.</pre>
-                            <h4>Response headers</h4>
-                            <pre class="api-response api-response-responseHeaders">Response wasn't received. Run endpoint request to see result.</pre>
-                            <h4>Response body</h4>
-                            <pre class="api-response api-response-responseBody">Response wasn't received. Run endpoint request to see result.</pre>
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs">
+                                <li><a href="#api-response-body-<?=$number?>" class="active" data-toggle="tab">Response body</a></li>
+                                <li><a href="#api-response-header-<?=$number?>" data-toggle="tab">Response headers</a></li>
+                                <li><a href="#api-request-body-<?=$number?>" data-toggle="tab">Request body</a></li>
+                                <li><a href="#api-request-header-<?=$number?>" data-toggle="tab">Request headers</a></li>
+                                <li><a href="#api-request-uri-<?=$number?>" data-toggle="tab">Request URI</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <pre id="api-request-uri-<?=$number?>"     class="tab-pane api-response api-response-requestUri">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-request-header-<?=$number?>"  class="tab-pane api-response api-response-requestHeaders">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-request-body-<?=$number?>"    class="tab-pane api-response api-response-requestBody">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-response-header-<?=$number?>" class="tab-pane api-response api-response-responseHeaders">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-response-body-<?=$number?>"   class="tab-pane active api-response api-response-responseBody">Response wasn't received. Run endpoint request to see result.</pre>
+                            </div>
                         </div>
                     </div>
                 </div>
