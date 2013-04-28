@@ -4,7 +4,7 @@ namespace WidRestApiDocumentator;
 use WidRestApiDocumentator\Exception\RuntimeException;
 use WidRestApiDocumentator\StrategyInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ConfigInterface as ZendConfigInterface;
 
 class StrategyManager extends AbstractPluginManager
 {
@@ -30,9 +30,9 @@ class StrategyManager extends AbstractPluginManager
      * After invoking parent constructor, add an initializer to inject the
      * attached translator, if any, to the currently requested helper.
      *
-     * @param  null|ConfigInterface $configuration
+     * @param  null|ZendConfigInterface $configuration
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function __construct(ZendConfigInterface $configuration = null)
     {
         parent::__construct($configuration);
     }
