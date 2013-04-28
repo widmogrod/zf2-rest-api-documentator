@@ -77,6 +77,7 @@ class ApiController extends AbstractActionController
         $result = Json::encode($result);
 
         $response = new Response();
+        $response->getHeaders()->addHeaderLine('Content-Type: application/json');
         $response->setContent($result);
         return $response;
     }
