@@ -2,6 +2,7 @@
 namespace WidRestApiDocumentator\Strategy;
 
 use WidRestApiDocumentator\Body\GenericBody;
+use WidRestApiDocumentator\BodyInterface;
 use WidRestApiDocumentator\ConfigInterface;
 use WidRestApiDocumentator\Exception;
 use WidRestApiDocumentator\Header\GenericHeader;
@@ -13,6 +14,7 @@ use WidRestApiDocumentator\Resource;
 use WidRestApiDocumentator\ResourceInterface;
 use WidRestApiDocumentator\ResourceSet;
 use WidRestApiDocumentator\StrategyInterface;
+use Zend\Filter\Exception\DomainException;
 use Zend\Http\Headers;
 
 class Standard implements StrategyInterface
@@ -144,7 +146,24 @@ class Standard implements StrategyInterface
             return;
         }
 
-        $body = new GenericBody();
+        if (isset($data['type'])) {
+            $type = $data['type'];
+            if (!class_exists($type)) {
+                $message = 'Type should be valid class name but was given %s';
+                $message = sprintf($message, $type);
+                throw new Exception\DomainException($message);
+            }
+            $interfaces = class_implements($type);
+            if (!isset($interfaces['WidRestApiDocumentator\BodyInterface'])) {
+                $message = 'Body type class "%s" should implement "WidRestApiDocumentator\BodyInterface"';
+                $message = sprintf($message, $type);
+                throw new Exception\DomainException($message);
+            }
+            $body = new $data['type']();
+        } else {
+            $body = new GenericBody();
+        }
+
         $paramSet = new ParamSet();
         $params = (array) $data['params'];
         foreach ($params as $name => $options) {

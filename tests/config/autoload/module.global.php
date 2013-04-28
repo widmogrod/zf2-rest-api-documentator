@@ -32,8 +32,9 @@ return array(
                 ),
                 'resources' => array(
                     'GET: /keywords' => 'Fetch list of keywords',
-                    'PUT: /keywords' => array(
+                    'POST: /keywords' => array(
                         'body' => array(
+                            'type' => 'WidRestApiDocumentator\Body\JsonBody',
                             'params' => array(
                                 'name' => array(
                                     'type' => 'string',
@@ -44,7 +45,7 @@ return array(
                         ),
                     ),
                     'GET: /keywords/<id>' => 'Fetch specific keyword',
-                    'POST: /keywords/<id>' => array(
+                    'PUT: /keywords/<id>' => array(
                         'description' => 'Update specific keyword information',
                         'body' => array(
                             'params' => array(

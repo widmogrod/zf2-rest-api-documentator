@@ -22,9 +22,23 @@ class GenericBody implements BodyInterface
         return $this->params;
     }
 
+    protected $body;
+
     public function parse($value)
-    {}
+    {
+        $result = array();
+        $params = $this->getParams();
+        foreach ((array)$value as $key => $value) {
+            if ($params->has($key)) {
+                $result[$key] = $value;
+            }
+        }
+
+        $this->body = http_build_query($result);
+    }
 
     public function toString()
-    {}
+    {
+        return $this->body;
+    }
 }
