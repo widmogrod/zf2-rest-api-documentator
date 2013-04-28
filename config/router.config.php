@@ -24,9 +24,43 @@ return array(
                                 'action' => 'show',
                             ),
                         ),
-                        'may_terminate' => true,
+                    ),
+                ),
+            ),
+            'rest-api' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/rest-api',
+                    'defaults' => array(
+                        'controller' => 'WidRestApiDocumentator\Controller\Api',
+                        'action' => 'list',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'api' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:id',
+                            'constraints' => array(
+                                'id' => '[^/ ]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'WidRestApiDocumentator\Controller\Api',
+                            ),
+                        ),
+                        'may_terminate' => false,
                         'child_routes' => array(
-                            'api' => array(
+                            'get' => array(
+                                'type' => 'Method',
+                                'options' => array(
+                                    'verb' => 'get',
+                                    'defaults' => array(
+                                        'action' => 'show',
+                                    ),
+                                ),
+                            ),
+                            'post' => array(
                                 'type' => 'Segment',
                                 'options' => array(
                                     'route' => '/:endpoint',
@@ -34,7 +68,6 @@ return array(
                                         'endpoint' => '[\d]+',
                                     ),
                                     'defaults' => array(
-                                        'controller' => 'WidRestApiDocumentator\Controller\Api',
                                         'action' => 'do',
                                     ),
                                 ),

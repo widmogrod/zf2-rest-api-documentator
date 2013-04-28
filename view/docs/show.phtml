@@ -35,7 +35,7 @@ $esc = $this->plugin('EscapeHtml');
             <span class="api-method api-method-<?= strtolower($esc($resource->getMethod())) ?>" ><?= $esc($resource->getMethod())?></span>
             <span class="api-request-action"
                   title="Run endpoint"
-                  data-api-url="<?= $this->url('rest-api-docs/show/api', array('id' => $this->id, 'endpoint' => $number)) ?>">
+                  data-api-url="<?= $this->url('rest-api/api/post', array('id' => $this->id, 'endpoint' => $number)) ?>">
                 <small>Run &raquo</small>
             </span>
         </div>
@@ -77,7 +77,16 @@ $esc = $this->plugin('EscapeHtml');
 
                     <div class="tab-pane active" id="response-<?=$number?>">
                         <div class="toggable-response">
-                            <pre class="api-response prettyprint">Response wasn't received. Run endpoint request to see result.</pre>
+                            <h4>Request URI</h4>
+                            <pre class="api-response api-response-requestUri">Response wasn't received. Run endpoint request to see result.</pre>
+                            <h4>Request headers</h4>
+                            <pre class="api-response api-response-requestHeaders">Response wasn't received. Run endpoint request to see result.</pre>
+                            <h4>Request body</h4>
+                            <pre class="api-response api-response-requestBody">Response wasn't received. Run endpoint request to see result.</pre>
+                            <h4>Response headers</h4>
+                            <pre class="api-response api-response-responseHeaders">Response wasn't received. Run endpoint request to see result.</pre>
+                            <h4>Response body</h4>
+                            <pre class="api-response api-response-responseBody">Response wasn't received. Run endpoint request to see result.</pre>
                         </div>
                     </div>
                 </div>

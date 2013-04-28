@@ -24,6 +24,8 @@ class StandardConfig implements ConfigInterface
 
     public function setBaseUrl($value)
     {
+        $value = trim($value);
+        $value = rtrim($value, '/');
         $this->baseUrl = $value;
     }
 

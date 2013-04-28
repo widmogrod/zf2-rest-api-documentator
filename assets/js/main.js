@@ -68,21 +68,25 @@
     // Perform request
     $('.api-request-action').on('click', function(){
         var parent = $(this).parents('.api-entrypoint');
-        var response = parent.find('.api-response');
         var documentation = parent.find('.api-entrypoint-documentation');
         var data = parent.find(':input').serializeArray();
+        var items = ['requestUri', 'requestHeaders', 'requestBody', 'responseHeaders', 'responseBody'];
 
         $.ajax({
             'url': $(this).data('api-url'),
             'type': 'post',
             'data': data,
-            'dataType': 'html',
+            'dataType': 'json',
             'success': function(data) {
                 parent.find('a[href^=#response-]').tab('show');
-                response.html(Formater.auto(data));
+                $.each(items, function(k, item){
+                    parent.find('.api-response-' + item).html(Formater.auto(JSON.stringify(data[item])))
+                });
             },
             'error' : function() {
-                response.html('Ups... error occurred during request.');
+                $.each(items, function(k, item){
+                    parent.find('.api-response-' + item).html('Ups... error occurred during request.');
+                });
             },
             'complete': function() {
                 documentation.addClass('show');

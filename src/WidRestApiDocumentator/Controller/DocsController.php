@@ -9,7 +9,7 @@ class DocsController extends AbstractActionController
     /**
      * @return \WidRestApiDocumentator\Service\Docs
      */
-    public function getApiService()
+    public function getDocsService()
     {
         return $this->getServiceLocator()->get('WidRestApiDocumentator\Service\Docs');
     }
@@ -20,7 +20,7 @@ class DocsController extends AbstractActionController
 
         /** @var $rq \Zend\Http\PhpEnvironment\Request */
         $rq = $this->getRequest();
-        $service = $this->getApiService();
+        $service = $this->getDocsService();
         return array(
             'dataSet' => $service->getList($rq->getQuery('page'), $rq->getQuery('limit')),
         );
@@ -32,7 +32,7 @@ class DocsController extends AbstractActionController
 
         $id = $this->params('id');
         $showBackLink = $this->params('show_back_link', 1);
-        $service = $this->getApiService();
+        $service = $this->getDocsService();
         return array(
             'id' => $id,
             'data' => $service->getOne($id),

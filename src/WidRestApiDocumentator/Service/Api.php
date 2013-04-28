@@ -5,6 +5,8 @@ use WidRestApiDocumentator\HeaderInterface;
 use WidRestApiDocumentator\ParamInterface;
 use WidRestApiDocumentator\Strategy\Standard;
 use Zend\Http\Client;
+use Zend\Json\Json;
+use Zend\Http\Header\ContentType;
 use Zend\Stdlib\ParametersInterface;
 
 class Api
@@ -83,7 +85,23 @@ class Api
         $client->setRawBody($body->toString());
 
         $response = $client->send();
-        return $response->getBody();
+        $body = $response->getBody();
+
+        $contentType = $response->getHeaders()->get('Content-type');
+        if ($contentType instanceof ContentType) {
+            $value = $contentType->getFieldValue();
+            if (false !== strpos($value, 'json')) {
+                $body = Json::decode($body);
+            }
+        }
+
+        return array(
+            'requestUri' => $client->getUri()->toString(),
+            'requestBody' => $client->getRequest()->getContent(),
+            'requestHeaders' => $client->getRequest()->getHeaders()->toArray(),
+            'responseHeaders' => $response->getHeaders()->toArray(),
+            'responseBody' => $body,
+        );
     }
 
     public function getHttpClient()

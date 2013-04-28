@@ -8,7 +8,7 @@ return array(
             'zf2-rest-api-documentator' => array(
                 'name' => 'widmogrod/zf2-rest-api-documentator',
                 'version' => '1.0.0',
-                'baseUrl' => 'http://127.0.0.1:8081/api',
+                'baseUrl' => 'http://127.0.0.1:8082',
                 // Strategy is way, in which this configuration will be interpreted.
                 'strategy' => 'standard',
                 // General description for common thing in module, to skip redundancy
@@ -17,14 +17,24 @@ return array(
                         'id' => array(
                             'type' => 'string',
                             'required' => true,
-                            'description' => 'Resource identification'
+                            'description' => 'API ID'
+                        ),
+                        'page' => array(
+                            'type' => 'integer',
+                            'description' => 'Show results from given value.'
+                        ),
+                        'limit' => array(
+                            'type' => 'strintegering',
+                            'description' => 'Limit API result to given value. Value must be between 1-100'
                         ),
                     ),
                 ),
                 // REST API Endpoings, here you describing your API
                 'resources' => array(
-                    'POST: /request/<id>/<endpoint>' => array(
-                        'description' => 'Perform request for given API <id> - <endpoint>',
+                    'GET:  /rest-api?limit=&page=' => 'Fetch list of endpoints.',
+                    'GET:  /rest-api/<id>',
+                    'POST: /rest-api/<id>/<endpoint>' => array(
+                        'description' => 'Perform request for given API <id> and specific <endpoint>',
                         'headers' => array(
                             'X-Test-Header' => array(
                                 'type' => 'string',
