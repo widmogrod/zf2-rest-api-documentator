@@ -5,9 +5,13 @@
    - test for body params
  - create groups of endpoints
  - add authorizathion workflow
- - allow to put information of request body type (json, form/encoded, ...)
 
 # DONE
+## 2013-04-28
+ - implement sending request body
+ - informations in tabs of request body, headers & response body, header
+ - allow to put information of request body type (json, form/encoded, ...)
+
 ## 2013-04-26
  - add POST, PUT params to description
  - add HTTP Headers to documentation
