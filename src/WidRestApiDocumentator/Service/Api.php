@@ -37,6 +37,7 @@ class Api
         $bodyValue = $params->get('body');
 
         // TODO: This, should be move to helper.
+        // Prepare url params
         $urlParams = $resource->getUrlParams();
         if (count($urlParams)) {
             $urlParams->rewind();
@@ -48,6 +49,7 @@ class Api
             }, $uri);
         }
 
+        // Prepare http query params
         $queryParams = $resource->getQueryParams();
         if (count($queryParams)) {
             $query = array();
@@ -69,25 +71,27 @@ class Api
         $client->setUri($uri);
 
         // Setup headers
-        $headers = $client->getRequest()->getHeaders();
+        $request = $client->getRequest();
+        $headers = $request->getHeaders();
         foreach($resource->getHeaders() as $header /** @var HeaderInterface $header */) {
             $key = $header->getName();
-            // TODO: add validation if required (?)
             if (array_key_exists($key, $headerValues)) {
                 $value = $headerValues[$key];
-                $headers->addHeaderLine($header->getName(), $value);
+                $headers->addHeaderLine($key, $value);
             }
         }
 
         // Setup body
         $body = $resource->getBody();
         $body->parse($bodyValue);
-        $client->setRawBody($body->toString());
+        $request->setContent($body->toString());
 
         $response = $client->send();
-        $body = $response->getBody();
 
-        $contentType = $response->getHeaders()->get('Content-type');
+        // If response is JSON then parse it to JSON.
+        $body = $response->getBody();
+        $responseHeaders = $response->getHeaders();
+        $contentType = $responseHeaders->get('Content-type');
         if ($contentType instanceof ContentType) {
             $value = $contentType->getFieldValue();
             if (false !== strpos($value, 'json')) {
@@ -96,10 +100,10 @@ class Api
         }
 
         return array(
-            'requestUri' => $client->getUri()->toString(),
-            'requestBody' => $client->getRequest()->getContent(),
-            'requestHeaders' => $client->getRequest()->getHeaders()->toArray(),
-            'responseHeaders' => $response->getHeaders()->toArray(),
+            'requestUri' => $request->getUriString(),
+            'requestBody' => $request->getContent(),
+            'requestHeaders' => $headers->toArray(),
+            'responseHeaders' => $responseHeaders->toArray(),
             'responseBody' => $body,
         );
     }
