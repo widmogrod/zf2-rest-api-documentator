@@ -1,4 +1,4 @@
-# Module generating REST API documentation v1.5.0 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
+# Module generating REST API documentation v1.5.1 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
 ## Introduction
 
 This module allow to create quick documentation of your REST API.
