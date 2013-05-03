@@ -5,6 +5,7 @@
    - test for body params
  - create groups of endpoints
  - add authorizathion workflow
+ - allow limit of depth in strategy (limit memory ussage - usefull for lists, not everything is needed)
 
 # DONE
 ## 2013-05-03
