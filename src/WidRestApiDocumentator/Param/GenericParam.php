@@ -6,6 +6,7 @@ use WidRestApiDocumentator\ParamInterface;
 class GenericParam implements ParamInterface
 {
     protected $name;
+    protected $value;
     protected $type = self::TYPE_MIXED;
     protected $required = false;
     protected $description;
@@ -45,6 +46,16 @@ class GenericParam implements ParamInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
     }
 
     public function setRequired($required)

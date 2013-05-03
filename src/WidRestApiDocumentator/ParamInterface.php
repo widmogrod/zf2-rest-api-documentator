@@ -10,6 +10,8 @@ interface ParamInterface
 
     public function setName($value);
     public function getName();
+    public function setValue($value);
+    public function getValue();
     public function setType($value);
     public function getType();
     public function setDescription($value);
