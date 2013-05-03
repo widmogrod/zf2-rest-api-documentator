@@ -141,21 +141,21 @@ class Standard extends \PHPUnit_Framework_TestCase {
             ),
             'with query regexp' => array(
                 '$resources' => array(
-                    'GET : /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}'
+                    'GET : /keywords/<id>/search_engines?limit=10&order=asc'
                 ),
                 '$methods' => array('GET'),
-                '$urlParams' => array(array('id' => '[\d]+')),
-                '$queryParams' => array(array('limit' => '[\d+]', 'order' => '(asc|desc)')),
-                '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
+                '$urlParams' => array(array('id' => null)),
+                '$queryParams' => array(array('limit' => '10', 'order' => 'asc')),
+                '$urls' => array('/keywords/<id>/search_engines?limit=10&order=asc'),
             ),
             'with query' => array(
                 '$resources' => array(
-                    'GET : /keywords/{<id>[\d]+}/search_engines?limit=&order='
+                    'GET : /keywords/<id>/search_engines?limit=9&order=desc'
                 ),
                 '$methods' => array('GET'),
-                '$urlParams' => array(array('id' => '[\d]+')),
-                '$queryParams' => array(array('limit' => '', 'order' => '')),
-                '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
+                '$urlParams' => array(array('id' => null)),
+                '$queryParams' => array(array('limit' => '9', 'order' => 'desc')),
+                '$urls' => array('/keywords/<id>/search_engines?limit=9&order=desc'),
             ),
             'POST' => array(
                 '$resources' => array(
@@ -271,7 +271,7 @@ class Standard extends \PHPUnit_Framework_TestCase {
                     ),
                 ),
                 '$resources' => array(
-                    'GET : /keywords/{<id>[\d]+}/search_engines?limit={[\d+]}&order={(asc|desc)}'
+                    'GET : /keywords/{<id>[\d]+}/search_engines?limit=10&order=desc'
                 ),
                 '$methods' => array('GET'),
                 '$urlParams' => array(
@@ -297,7 +297,7 @@ class Standard extends \PHPUnit_Framework_TestCase {
                         ),
                     )
                 ),
-                '$urls' => array('/keywords/{<id>[\d]+}/search_engines'),
+                '$urls' => array('/keywords/{<id>[\d]+}/search_engines?limit=10&order=desc'),
             ),
         );
     }
