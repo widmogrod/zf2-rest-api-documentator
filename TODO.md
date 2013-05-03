@@ -8,9 +8,9 @@
 
 # DONE
 ## 2013-05-03
- - refactor Strategy\Strategy
- - refactor & reimplement ParamSet
- - small refactor of Service\Api
+ - refactoring Strategy\Strategy
+ - refactoring ParamSetInterface and new implementation of ParamSet\*
+ - small refactoring of Service\Api
 
 ## 2013-04-28
  - implement sending request body
