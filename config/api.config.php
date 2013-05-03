@@ -24,7 +24,7 @@ return array(
                             'description' => 'Show results from given value.'
                         ),
                         'limit' => array(
-                            'type' => 'strintegering',
+                            'type' => 'integer',
                             'description' => 'Limit API result to given value. Value must be between 1-100'
                         ),
                     ),
