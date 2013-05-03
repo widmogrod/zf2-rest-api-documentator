@@ -1,17 +1,17 @@
-# Module generating REST API documentation v1.5.1 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
+# Module generating REST API documentation v1.6.0 [![Build Status](https://travis-ci.org/widmogrod/zf2-rest-api-documentator.png?branch=master)](https://travis-ci.org/widmogrod/zf2-rest-api-documentator)
 ## Introduction
 
 This module allow to create quick documentation of your REST API.
 
 Main features that I want to implement:
 
- - [√] Generate REST API documentation HTML page.
- - [√] Unlimited number of documented APIs
- - [√] Elastic & simple to use.
- - [-] Well documented
+ - `[√]` Generate REST API documentation HTML page.
+ - `[√]` Unlimited number of documented APIs
+ - `[√]` Elastic & simple to use.
+ - `[-]` Well documented
  - Posibility to test & play with API from docs page
-   - [√] Execute API call from documentation
-   - [-] Performing authorization (OAuth, BaseAuth, ...)
+   - `[√]` Execute API call from documentation
+   - `[-]` Performing authorization (OAuth, BaseAuth, ...)
 
 Read [TODO.md](https://github.com/widmogrod/zf2-rest-api-documentator/blob/master/TODO.md) for more information.
 

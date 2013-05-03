@@ -7,6 +7,11 @@
  - add authorizathion workflow
 
 # DONE
+## 2013-05-03
+ - refactor Strategy\Strategy
+ - refactor & reimplement ParamSet
+ - small refactor of Service\Api
+
 ## 2013-04-28
  - implement sending request body
  - informations in tabs of request body, headers & response body, header
