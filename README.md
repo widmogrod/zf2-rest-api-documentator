@@ -72,7 +72,7 @@ return array(
                         ),
                     ),
                 ),
-                // REST API Endpoings, here you describing your API
+                // REST API Endpoints, here you're describing your API
                 'resources' => array(
                     'GET: /keywords' => 'Fetch list of keywords',
                     'POST: /keywords' => array(
