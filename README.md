@@ -9,10 +9,10 @@ Main features that I want to implement:
    - `[√]` Describe function of available parameters
    - `[√]` Create a general description of the parameters several times repeated
  - Unlimited number of documented APIs
-   - `[√]` Create modules for ZF2 contain a good and standardized documentation
+   - `[√]` Create modules for ZF2 containing a good and standardized documentation
  - Elastic & simple to use.
    - `[√]` Use predefined interpreter for configuration or write it by your self
-   - `[-]` Do you have a self-describing API? help me, to write that kind of interpreter or wait until I'll do it
+   - `[-]` Do you have a self-describing API and you want to automaticly build documentation from it? Help me, to write that kind of interpreter or wait until I'll do it
  - Well documented
    - `[√]` The module is shipped with API documentation, documented by this module.
    - `[√]` Some issues are described in tips & trick section
