@@ -33,6 +33,7 @@ return array(
                     'zf2_rest_api_img' => array(
                         'assets' => array(
                             'img/*.png',
+                            'img/*.gif',
                         ),
                         'options' => array(
                             'move_raw' => true,

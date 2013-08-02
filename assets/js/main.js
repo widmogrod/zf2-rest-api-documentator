@@ -67,10 +67,13 @@
 
     // Perform request
     $('.api-request-action').on('click', function(){
+        var $self = $(this);
         var parent = $(this).parents('.api-entrypoint');
         var documentation = parent.find('.api-entrypoint-documentation');
         var data = parent.find(':input').serializeArray();
         var items = ['requestUri', 'requestHeaders', 'requestBody', 'responseHeaders', 'responseBody'];
+
+        $self.addClass('loader');
 
         $.ajax({
             'url': $(this).data('api-url'),
@@ -89,6 +92,7 @@
                 });
             },
             'complete': function() {
+                $self.removeClass('loader');
                 documentation.addClass('show');
             }
         });

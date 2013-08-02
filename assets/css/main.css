@@ -21,6 +21,12 @@
     font-size: 14px;
     font-family: monospace;
 }
+.api-request-action.loader {
+    padding-left: 20px;
+    background: url("img/loader.gif") no-repeat 50% 50%;
+    color: #fff;
+    cursor: wait;
+}
 .api-request-action {
     text-align: center;
     display: block;
